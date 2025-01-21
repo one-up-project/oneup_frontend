@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { UserLocationIcon } from "./UserLocationIcon";
 import "leaflet/dist/leaflet.css";
-import Markers from "./Markers";
+import Markers_Stores from "./Markers_Stores";
 
 const MapView = () => {
   //ubicacion del usuario actual
@@ -38,12 +38,14 @@ const MapView = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {/* marcadores segun tiendas obtenidas */}
-        <Markers places={data} />
+        <Markers_Stores places={data} />
         {/* marcador posicion usuario actual */}
         <Marker
           position={[state.currentLocation.lat, state.currentLocation.lng]}
           icon={UserLocationIcon}
-        />
+        >
+          <Popup>Tu ubicación actual.</Popup>
+        </Marker>
       </MapContainer>
     </div>
   );
