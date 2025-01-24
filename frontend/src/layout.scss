@@ -8,16 +8,16 @@
     padding-right: 20px;
     
     @include large{
-        background-color: rgb(226, 157, 157);
+        //background-color: rgb(226, 157, 157);
         max-width: 1280px;
 
     }
     @include medium{
-        background-color: rgb(172, 172, 241);
+        //background-color: rgb(172, 172, 241);
         max-width: 768px;
     }
     @include small{
-        background-color: rgb(240, 212, 162);
+        //background-color: rgb(240, 212, 162);
         max-width: 640px;
     }
 }
@@ -28,6 +28,7 @@
 
 .content{
     //background-color: green;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 150px);
+    //height: 100vh;
 }
 
