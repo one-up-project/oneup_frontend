@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import SearchBar from "../../components/search-bar/SearchBar";
 const Search = () => {
   //coordenadas actuales por defecto
   const [state, setState] = useState({
@@ -23,8 +23,11 @@ const Search = () => {
   });
 
   return (
-    <div>
-      <h1>Search Page</h1>
+    <div className="search">
+      <div className="search-bar">
+        <SearchBar />
+      </div>
+      <div className="map"></div>
     </div>
   );
 };
