@@ -1,0 +1,39 @@
+.top-bar {
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .top-bar-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .top-bar-button .icon {
+    color: gray;
+    font-size: 24px;
+  }
+  
+  .top-bar-button .label {
+    font-size: 12px;
+    color: gray;
+    margin-top: 4px;
+  }
+  
+  .top-bar-button:hover .icon {
+    color: black;
+  }
+  
+  .top-bar-button:hover .label {
+    color: black;
+  }
+  
