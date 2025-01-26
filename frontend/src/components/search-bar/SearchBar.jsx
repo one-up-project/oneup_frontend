@@ -6,13 +6,13 @@ function SearchBar() {
       <form action="">
         <input type="text" name="store-name" placeholder="Store name" />
         <select name="store-category">
-          <option value="all">Todos</option>
+          <option value="all">Categoria</option>
           <option value="supermarket">Supermercado</option>
           <option value="restaurant">Restaurante</option>
           <option value="bakery">Panaderia</option>
         </select>
         <button>
-          <img src="/search-icon.svg" alt="" />
+          <img src="/search-icon.svg" alt="Buscar" />
         </button>
       </form>
     </div>

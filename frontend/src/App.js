@@ -1,7 +1,7 @@
-import Search from "./pages/search/Search";
-import Home from "./pages/home/Home";
-import Layout from "./pages/layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from "./pages/layout/Layout";
+import Home from "./pages/home/Home";
+import Search from "./pages/search/Search";
 
 function App() {
   const router = createBrowserRouter([
