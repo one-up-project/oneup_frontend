@@ -5,7 +5,7 @@ function StoreCard({ item }) {
   return (
     <div className="store-card">
       <div className="store-name">
-        <Link to={`/stores/${item.id}`}>{item.storeName}</Link>
+        <Link to={`/stores/${item.id_store}`}>{item.store_name}</Link>
       </div>
       <div className="store-info">
         {/* esta informacion la obtenemos apartir
@@ -14,7 +14,9 @@ function StoreCard({ item }) {
         <p>Descripcion: {item.description}</p>
         <div className="address">
           <img src="/address.png" alt="" />
-          <p>Latitud: {item.lat}</p>
+          <p>
+            Latitud: {item.location.lat}, Longitud: {item.location.lon}{" "}
+          </p>
         </div>
         <div className="save-store">
           <img src="/save.png" alt="" />

@@ -1,17 +1,37 @@
+import React, { useState } from "react";
+
 import "./searchBar.scss";
 
-function SearchBar() {
+function SearchBar({ onSearch }) {
+  const [storeName, setStoreName] = useState("");
+  const [storeCategory, setStoreCategory] = useState("all");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSearch(storeName, storeCategory);
+  };
   return (
     <div className="search-bar">
-      <form action="">
-        <input type="text" name="store-name" placeholder="Store name" />
-        <select name="store-category">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="store-name"
+          placeholder="Store name"
+          value={storeName}
+          onChange={(e) => setStoreName(e.target.value)}
+        />
+        <select
+          name="store-category"
+          value={storeCategory}
+          onChange={(e) => setStoreCategory(e.target.value)}
+        >
           <option value="all">Categoria</option>
-          <option value="supermarket">Supermercado</option>
-          <option value="restaurant">Restaurante</option>
-          <option value="bakery">Panaderia</option>
+          <option value="supermercado">Supermercado</option>
+          <option value="restaurante">Restaurante</option>
+          <option value="panaderia">Panaderia</option>
+          <option value="mercado">Mercado</option>
         </select>
-        <button>
+        <button type="submit">
           <img src="/search-icon.svg" alt="Buscar" />
         </button>
       </form>
