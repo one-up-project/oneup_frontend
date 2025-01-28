@@ -1,0 +1,34 @@
+@import "../../responsive.scss";
+.layout{
+    height: 100vh;
+    max-width: 1366px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+    @include large{
+        //background-color: rgb(226, 157, 157);
+        max-width: 1280px;
+
+    }
+    @include medium{
+        //background-color: rgb(172, 172, 241);
+        max-width: 768px;
+    }
+    @include small{
+        //background-color: rgb(240, 212, 162);
+        max-width: 640px;
+    }
+}
+
+.navbar{
+
+}
+
+.content{
+    //background-color: green;
+    height: calc(100vh - 150px);
+    //height: 100vh;
+}
+

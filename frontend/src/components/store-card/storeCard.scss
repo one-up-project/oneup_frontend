@@ -1,0 +1,42 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+.store-card{
+    font-family: "DM Sans", serif;
+    font-optical-sizing: auto;
+    //font-weight: 500;
+    font-style: normal;
+    border: 1px solid rgb(175, 172, 172);
+    border-radius: 7px;
+    width: 70%;
+    .store-name{
+        font-size: 20px;
+        text-align: center;
+        padding: 5px;
+        background-color: rgb(241, 128, 62);
+    }
+    .store-info{
+        font-size: 15px;
+        padding: 5px;
+        .address{
+            margin-top: 10px;
+
+            gap: 10px;
+            display: flex;
+            img{
+                width: 20px;
+                height: 20px;
+            }
+        }
+        .save-store{
+            margin-top: 10px;
+            gap: 10px;
+            display: flex;
+            cursor:pointer;
+            img{
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+}
