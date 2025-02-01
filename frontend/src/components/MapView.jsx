@@ -4,6 +4,7 @@ import { UserLocationIcon } from "./UserLocationIcon";
 import "leaflet/dist/leaflet.css";
 import "./mapView.scss";
 import Markers_Stores from "./Markers_Stores";
+import { gql, useQuery } from "@apollo/client";
 
 const MapView = () => {
   const mapRef = useRef(null); // Referencia al mapa
@@ -11,8 +12,8 @@ const MapView = () => {
   //coordenadas por defecto (unal bogota)
   const [state, setState] = useState({
     currentLocation: {
-      lat: 4.6453,
-      lng: -74.07455,
+      lat: 4.63777,
+      lng: -74.084,
     },
     zoom: 14,
   });
@@ -31,6 +32,10 @@ const MapView = () => {
           ...prevState,
           currentLocation: newLocation,
         }));
+
+        //log de coordenadas y precision de ubicacion
+        console.log("precision coordenadas (m):", position.coords.accuracy);
+        console.log("coordenadas", newLocation.lat, newLocation.lng);
         // Centrar el mapa en la nueva ubicación
         if (mapRef.current) {
           const map = mapRef.current;
@@ -44,21 +49,65 @@ const MapView = () => {
     );
   }, [state.zoom]);
 
-  const [data, setData] = useState([]);
+  const [stores_data, setStores_data] = useState({ stores: [] });
+
+  // ----------------------------------------------------------------
+  // fetch
   // peticion servicio search para busqueda de tiendas en un radio de 2km
+  // useEffect(() => {
+  //   fetch(
+  //     `http://localhost:8800/search-ms/stores/get-near-stores/${state.currentLocation.lat}/${state.currentLocation.lng}`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setData(data); // Actualizar el estado con los datos
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al hacer la petición:", error);
+  //     });
+  // }, [state.currentLocation]);
+  // ----------------------------------------------------------------
+  // apollo client
+  // implementacion query graphql obtener tiendas cercanas al usuario
+  const GET_NEAR_STORES = gql`
+    query Query($lat: Float!, $lon: Float!) {
+      getNearStores(lat: $lat, lon: $lon) {
+        id_store
+        store_name
+        description
+        category
+        location {
+          lat
+          lon
+        }
+      }
+    }
+  `;
+
+  // invocar consulta
+  const { loading, error, data } = useQuery(GET_NEAR_STORES, {
+    //definir variables
+    variables: {
+      lat: state.currentLocation.lat,
+      lon: state.currentLocation.lng,
+    },
+  });
+
+  //log resultados obtenidos
   useEffect(() => {
-    fetch(
-      `http://localhost:8800/search-ms/stores/get-near-stores/${state.currentLocation.lat}/${state.currentLocation.lng}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data); // Actualizar el estado con los datos
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error al hacer la petición:", error);
-      });
-  }, [state.currentLocation]);
+    if (data) {
+      //actualizar datos de tiendas obtenidas
+      setStores_data((prev) => ({ ...prev, stores: data.getNearStores }));
+      // log resultados
+      console.log(data);
+    }
+  }, [data]);
+
+  //log error
+  if (error) {
+    console.log(error);
+  }
 
   return (
     <MapContainer
@@ -73,7 +122,7 @@ const MapView = () => {
       />
       {/* marcadores segun tiendas obtenidas */}
 
-      <Markers_Stores data={data} />
+      <Markers_Stores data={stores_data.stores || []} />
 
       {/* marcador posicion usuario actual */}
       <Marker
