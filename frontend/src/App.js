@@ -1,9 +1,9 @@
 import "./layout.scss";
 //import MapView from "./components/MapView";
-import Home from "./pages/home/Home";
+//import Home from "./pages/home/Home";
 import Navbar from "./components/navbar/Navbar";
 //import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import Store from "./pages/store/Store";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Navbar />
       </div>
       <div className="content">
-        <Home />
+        <Store />
       </div>
     </div>
   );
