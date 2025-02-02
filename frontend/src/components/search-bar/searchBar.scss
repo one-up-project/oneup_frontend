@@ -1,0 +1,25 @@
+.search-bar{
+    form{
+        display: flex;
+        //justify-content: space-between;
+        height: 40px;
+        gap:10px;
+        input{
+            text-align: center;
+            width: 60%;
+        }
+        select{
+            text-align: center;
+            width: 20%;
+        }
+        button{
+            border:none;
+            cursor:pointer;
+            background-color: white;
+            img{
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+}
