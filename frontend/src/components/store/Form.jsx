@@ -4,7 +4,7 @@ import { CREATE_RANDOM_BAG } from '../../graphql/mutations';
 import './form.scss';
 
 const Form = () => {
-  // Estado para almacenar los datos del formulario
+
   const [formData, setFormData] = useState({
     store_id: '',
     description: '',
@@ -14,10 +14,8 @@ const Form = () => {
     available: false,
   });
 
-  // Hook para la mutación de GraphQL
   const [createRandomBag] = useMutation(CREATE_RANDOM_BAG);
 
-  // Manejar cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -26,11 +24,11 @@ const Form = () => {
     });
   };
 
-  // Manejar el envío del formulario
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Enviar los datos del formulario a la mutación
+
       const { data } = await createRandomBag({
         variables: {
           input: {
@@ -44,11 +42,11 @@ const Form = () => {
         },
       });
 
-      // Mostrar mensaje de éxito
+
       console.log('Random Bag creado:', data.createRandomBag);
       alert('¡Bolsa sorpresa creada exitosamente!');
 
-      // Limpiar el formulario después de enviar
+
       setFormData({
         store_id: '',
         description: '',
@@ -58,7 +56,7 @@ const Form = () => {
         available: false,
       });
     } catch (error) {
-      // Mostrar mensaje de error
+
       console.error('Error al crear la bolsa sorpresa:', error);
       alert('Hubo un error al crear la bolsa sorpresa.');
     }
