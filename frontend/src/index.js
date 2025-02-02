@@ -19,7 +19,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>{" "}
+      <ApolloProvider client={gatewayStore}>
+        <App />
+      </ApolloProvider>
+    </ApolloProvider>
   </React.StrictMode>
 );
