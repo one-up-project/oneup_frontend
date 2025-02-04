@@ -64,4 +64,25 @@
   .see-more:hover {
     text-decoration: underline;
   }
+  .card-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
   
+    button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &.update-button {
+        background-color: #4caf50;
+        color: white;
+      }
+  
+      &.delete-button {
+        background-color: #f44336;
+        color: white;
+      }
+    }
+  }

@@ -7,7 +7,11 @@ export const GET_RANDOM_BAGS = gql`
       store_id
       description
       total_price
+      discount_price
+      pick_up_time
       available
+      created_at
+      updated_at
     }
   }
 `;
