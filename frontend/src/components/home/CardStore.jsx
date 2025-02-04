@@ -29,9 +29,9 @@ const CardStore = () => {
     }
   };
 
-  // Función para manejar la actualización (puedes redirigir a un formulario de edición)
+  // Actualizar post
   const handleUpdate = (random_bag_id) => {
-    console.log('Actualizar Random Bag con ID:', random_bag_id); // Log para depuración
+    console.log('Actualizar Random Bag con ID:', random_bag_id);
     // Aquí puedes redirigir a un formulario de edición o abrir un modal
   };
 

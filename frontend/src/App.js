@@ -5,6 +5,8 @@ import Search from "./pages/search/Search";
 import Home2 from "./pages/home2/Home2";
 import Store from "./pages/store/Store";
 import HomeUser from "./pages/home/HomeUser";
+import StoreSearch from "./pages/store/store_search/StoreSearch";
+import StoreProfile from "./pages/store/store_profile/StoreProfile";
 
 function App() {
   const router = createBrowserRouter([
@@ -39,6 +41,14 @@ function App() {
             { path: "form",
               element: <Store />
 
+            },
+            {
+              path: "search",
+              element: <StoreSearch/>
+            },
+            {
+              path: "profile",
+              element: <StoreProfile/>
             },
           ],
         },

@@ -1,6 +1,44 @@
-.cards{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
+.layer {
+    text-align: center;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+
+    h1 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    .add-store-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-bottom: 20px;
+
+        &:hover {
+            background-color: #0056b3;
+        }
+    }
+
+    .cards-container {
+        max-height: 400px;  // Ajusta la altura según tu diseño
+        overflow-y: auto;
+        border: 1px solid #ccc; // Opcional: para dar un borde visual
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
 }

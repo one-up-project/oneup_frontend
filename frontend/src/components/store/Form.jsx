@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_RANDOM_BAG } from '../../graphql/mutations';
+import { XIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 import './form.scss';
 
 const Form = () => {
@@ -64,75 +66,84 @@ const Form = () => {
 
   return (
     <div className="form-container">
+    <div className="form-header">
       <h1>Crea una bolsa sorpresa</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Store ID:</label>
-          <input
-            type="number"
-            name="store_id"
-            value={formData.store_id}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Descripción:</label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Precio Total:</label>
-          <input
-            type="number"
-            step="0.01"
-            name="total_price"
-            value={formData.total_price}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Precio con Descuento:</label>
-          <input
-            type="number"
-            step="0.01"
-            name="discount_price"
-            value={formData.discount_price}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Hora de Recogida:</label>
-          <input
-            type="datetime-local"
-            name="pick_up_time"
-            value={formData.pick_up_time}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Disponible:</label>
-          <input
-            type="checkbox"
-            name="available"
-            checked={formData.available}
-            onChange={handleChange}
-          />
-        </div>
-
-        <button type="submit" className="submit-button">Guardar</button>
-      </form>
+      <Link to="/store/home">
+      <button className="close-button" >
+        <XIcon className="icon" />
+      </button>
+      </Link>
     </div>
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label>Store ID:</label>
+        <input
+          type="number"
+          name="store_id"
+          value={formData.store_id}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Descripción:</label>
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Precio Total:</label>
+        <input
+          type="number"
+          step="0.01"
+          name="total_price"
+          value={formData.total_price}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Precio con Descuento:</label>
+        <input
+          type="number"
+          step="0.01"
+          name="discount_price"
+          value={formData.discount_price}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Hora de Recogida:</label>
+        <input
+          type="datetime-local"
+          name="pick_up_time"
+          value={formData.pick_up_time}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Disponible:</label>
+        <input
+          type="checkbox"
+          name="available"
+          checked={formData.available}
+          onChange={handleChange}
+        />
+      </div>
+
+      <button type="submit" className="submit-button">
+        Guardar
+      </button>
+    </form>
+  </div>
   );
 };
 

@@ -18,9 +18,10 @@ function Navbar() {
         <Link className="register-customer" to="/user/home">
           Cliente
         </Link>
-        <a className="register-store" href="logo">
+        <Link className="register-store" to="/store/home">
           Tienda
-        </a>
+        </Link>
+
       </div>
     </nav>
   );
