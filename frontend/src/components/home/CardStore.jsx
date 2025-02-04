@@ -42,7 +42,7 @@ const CardStore = () => {
 
   if (error) {
     console.error("Error al obtener los datos:", error); // Log para depuración
-    return <p>Error: {error.message}</p>;
+    return <p>No hay ninguna bolsa creada</p>;
   }
 
   // Verificar si data.randomBags existe antes de mapearlo
@@ -63,7 +63,7 @@ const CardStore = () => {
             </div>
             <h3 className="title">{randomBag.store_id}</h3>
             <p className="pickup-time">Tiempo de recogida {randomBag.pick_up_time}</p>
-            <p className="see-more">Ver mas...</p>
+            <p className="see-more">{randomBag.description}</p>
 
             {/* Botones de actualizar y eliminar */}
             <div className="card-actions">

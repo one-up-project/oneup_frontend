@@ -3,6 +3,8 @@ import Layout from "./pages/layout/Layout";
 import Home from "./pages/home/Home";
 import Search from "./pages/search/Search";
 import Home2 from "./pages/home2/Home2";
+import Store from "./pages/store/Store";
+import HomeUser from "./pages/home/HomeUser";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,6 +23,10 @@ function App() {
               path: "search",
               element: <Search />,
             },
+            {
+              path: "home",
+              element: <HomeUser />,
+            },
           ],
         },
         {
@@ -29,6 +35,10 @@ function App() {
             {
               path: "home",
               element: <Home2 />,
+            },
+            { path: "form",
+              element: <Store />
+
             },
           ],
         },
