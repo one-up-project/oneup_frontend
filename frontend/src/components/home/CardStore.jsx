@@ -1,6 +1,7 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_RANDOM_BAGS } from '../../graphql/queries';
 import { DELETE_RANDOM_BAG } from '../../graphql/mutations';
+import { Link } from "react-router-dom";
 import "./cardstore.scss";
 
 const CardStore = () => {
@@ -36,22 +37,22 @@ const CardStore = () => {
   };
 
   if (loading) {
-    console.log("Cargando datos..."); // Log para depuración
+    console.log("Cargando datos..."); 
     return <p>Cargando...</p>;
   }
 
   if (error) {
-    console.error("Error al obtener los datos:", error); // Log para depuración
+    console.error("Error al obtener los datos:", error); 
     return <p>No hay ninguna bolsa creada</p>;
   }
 
   // Verificar si data.randomBags existe antes de mapearlo
   if (!data || !data.randomBags) {
-    console.log("No hay datos disponibles"); // Log para depuración
+    console.log("No hay datos disponibles"); 
     return <p>No hay datos disponibles</p>;
   }
 
-  console.log("Datos a renderizar:", data.randomBags); // Log para depuración
+  console.log("Datos a renderizar:", data.randomBags); 
 
   return (
     <div className="card-container">
@@ -71,7 +72,14 @@ const CardStore = () => {
                 className="update-button"
                 onClick={() => handleUpdate(randomBag.random_bag_id)}
               >
-                Actualizar
+              <Link
+                to={{
+                  pathname: "/store/form",
+                  state: { randomBag }, // Pasamos los datos de la random bag como estado
+                }}
+              >
+                <button className="update-button">Actualizar</button>
+              </Link>
               </button>
               <button
                 className="delete-button"

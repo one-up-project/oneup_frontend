@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_RANDOM_BAG } from '../../graphql/mutations';
 import { XIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import './form.scss';
 
 const Form = () => {
-
+  const location = useLocation();
   const [formData, setFormData] = useState({
     store_id: '',
     description: '',
@@ -16,19 +16,34 @@ const Form = () => {
     available: false,
   });
 
+  // Si hay datos en el estado de la ubicación (location.state), prellenamos el formulario
+  useEffect(() => {
+    if (location.state && location.state.randomBag) {
+      const { randomBag } = location.state;
+      setFormData({
+        store_id: randomBag.store_id,
+        description: randomBag.description,
+        total_price: randomBag.total_price,
+        discount_price: randomBag.discount_price,
+        pick_up_time: randomBag.pick_up_time,
+        available: randomBag.available,
+      });
+    }
+  }, [location.state]);
+  
   const [createRandomBag] = useMutation(CREATE_RANDOM_BAG);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-
+    // Si el campo que cambia es total_price, calculamos el 30% y lo asignamos a discount_price
     if (name === 'total_price') {
       const totalPrice = parseFloat(value);
       const discountPrice = totalPrice * 0.3;
       setFormData({
         ...formData,
         [name]: value,
-        discount_price: discountPrice.toFixed(2), 
+        discount_price: discountPrice.toFixed(0), 
       });
     } else {
       setFormData({
@@ -74,7 +89,7 @@ const Form = () => {
   return (
     <div className="form-container">
       <div className="form-header">
-        <h1>Crea una bolsa sorpresa</h1>
+        <h1>{location.state ? "Actualizar bolsa sorpresa" : "Crear bolsa sorpresa"}</h1>
         <Link to="/store/home">
           <button className="close-button">
             <XIcon className="icon" />
@@ -123,7 +138,7 @@ const Form = () => {
             name="discount_price"
             value={formData.discount_price}
             onChange={handleChange}
-            readOnly // Hacemos el campo de solo lectura para evitar que el usuario lo modifique manualmente
+            readOnly 
           />
         </div>
 
@@ -148,7 +163,7 @@ const Form = () => {
         </div>
 
         <button type="submit" className="submit-button">
-          Guardar
+          {location.state ? "Actualizar" : "Guardar"}
         </button>
       </form>
     </div>
