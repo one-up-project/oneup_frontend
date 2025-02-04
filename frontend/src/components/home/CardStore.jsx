@@ -6,21 +6,21 @@ import "./cardstore.scss";
 const CardStore = () => {
   // Obtener los datos de random_bag
   const { loading, error, data } = useQuery(GET_RANDOM_BAGS, {
-    fetchPolicy: "network-only", // Evita que los datos en caché se sumen a la consulta
+    fetchPolicy: "network-only", 
   });
 
-  console.log("Renderizando CardStore"); // Log para verificar cuántas veces se renderiza el componente
-  console.log("Datos recibidos en el frontend:", data); // Log para depuración de los datos recibidos
+  console.log("Renderizando CardStore"); 
+  console.log("Datos recibidos en el frontend:", data); 
 
   // Mutación para eliminar una random_bag
   const [deleteRandomBag] = useMutation(DELETE_RANDOM_BAG, {
-    refetchQueries: [{ query: GET_RANDOM_BAGS }], // Recargar los datos después de eliminar
+    refetchQueries: [{ query: GET_RANDOM_BAGS }], 
   });
 
   // Función para manejar la eliminación
   const handleDelete = async (random_bag_id) => {
     try {
-      console.log("Intentando eliminar random_bag con ID:", random_bag_id); // Log para depuración
+      console.log("Intentando eliminar random_bag con ID:", random_bag_id); 
       await deleteRandomBag({ variables: { random_bag_id } });
       alert('Random Bag eliminada exitosamente');
     } catch (err) {
