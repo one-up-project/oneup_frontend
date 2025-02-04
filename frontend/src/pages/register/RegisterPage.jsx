@@ -35,8 +35,8 @@ function Register() {
   }, [isAuthenticated]);
 
   return (
-    <div className="container">
-      <section>
+    <div className="container_register">
+      <section className="section_register">
 
         {registerErrors.length > 0 && (
           <div className="mb-4">
@@ -53,7 +53,7 @@ function Register() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label htmlFor="username" className="font-medium">Nombre de Usuario:</label>
-            <input
+            <input className="input_register"
               type="text"
               id="username"
               placeholder="Escribe tu nombre"
@@ -67,7 +67,7 @@ function Register() {
 
           <div>
             <label htmlFor="email" className="font-medium">Correo:</label>
-            <input
+            <input className="input_register"
               id="email"
               placeholder="tuCorreo@dominio.tld"
               {...register("email")}
@@ -79,7 +79,7 @@ function Register() {
 
           <div>
             <label htmlFor="password" className="font-medium">Contraseña:</label>
-            <input
+            <input className="input_register"
               type="password"
               id="password"
               placeholder="********"
@@ -92,7 +92,7 @@ function Register() {
 
           <div>
             <label htmlFor="confirmPassword" className="font-medium">Confirmar Contraseña:</label>
-            <input
+            <input className="input_register"
               type="password"
               id="confirmPassword"
               placeholder="********"
@@ -105,7 +105,7 @@ function Register() {
 
           <div>
             <label htmlFor="phone" className="font-medium">Numero de teléfono:</label>
-            <input
+            <input className="input_register"
               type="text"
               id="phone"
               placeholder="Escribe tu numero de teléfono"
@@ -119,7 +119,7 @@ function Register() {
           <div>
             <label htmlFor="rol" className="font-medium">Rol:</label>
             
-            <select id="rol" {...register("rol", { required: true })}>
+            <select className="select_register" id="rol" {...register("rol", { required: true })}>
               <option disabled selected hidden>Selecciona tu rol</option>
               <option value="client">Persona natural</option>
               <option value="restaurant">Restaurante</option>
@@ -129,7 +129,7 @@ function Register() {
             )}
           </div>
 
-          <button type="submit">
+          <button type="submit" className="button_register">
             Crear
           </button>
         </form>
