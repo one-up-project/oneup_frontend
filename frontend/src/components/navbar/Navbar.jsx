@@ -12,8 +12,8 @@ function Navbar() {
         <a href="/">Contacto</a>
       </div>
       <div className="right">
-        <a href="">Iniciar sesion</a>
-        <span>Registrate como:</span>
+      <a href="/login">Iniciar sesion</a>
+      <a href="/register">Registrate como:</a>
         <a className="register-customer" href="">
           Cliente
         </a>
