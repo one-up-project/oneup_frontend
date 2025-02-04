@@ -1,15 +1,17 @@
 import "./layout.scss";
 import Navbar from "../../components/navbar/Navbar";
-import { Outlet } from "react-router-dom";
+import NavbarHome from "../../components/navbar/NavbarHome";
+import { Outlet, useLocation } from "react-router-dom";
 
 function Layout() {
+  const location = useLocation();
+
   return (
     <div className="layout">
-      {/* reutilizacion de navbar  */}
+      {/* Condicional para mostrar el navbar correspondiente */}
       <div className="navbar">
-        <Navbar />
+        {location.pathname === "/" ? <Navbar /> : <NavbarHome />}
       </div>
-      {/* componente outlet "comodin" */}
       <div className="content">
         <Outlet />
       </div>
