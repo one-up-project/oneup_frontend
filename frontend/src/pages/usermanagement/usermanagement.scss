@@ -1,0 +1,27 @@
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 50px;
+
+    .user-icon {
+        width: 150px; /* Tamaño grande del icono */
+        height: 150px;
+        border-radius: 50%; /* Para que sea completamente redondo */
+        background-color: #ccc; /* Color de fondo temporal */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 100px; /* Tamaño del ícono */
+        color: white;
+    }
+
+    .user-name {
+        margin-top: 15px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
+}
