@@ -11,7 +11,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: <AuthProvider><Layout /></AuthProvider>,
       children: [
         {
           path: "/",
@@ -23,11 +23,11 @@ function App() {
         },
         {
           path: "/login",
-          element:<AuthProvider><LoginPage /></AuthProvider> , // en authContext solicita que la ruta este en AuthProvider
+          element:<LoginPage /> , // en authContext solicita que la ruta este en AuthProvider
         },
         {
           path: "/register",
-          element: <AuthProvider><Register /></AuthProvider>, // en authContext solicita que la ruta este en AuthProvider
+          element: <Register />, // en authContext solicita que la ruta este en AuthProvider
         },
       ],
     },

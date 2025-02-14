@@ -20,17 +20,19 @@ export function LoginPage() {
   const onSubmit = (data) => signin(data);
 
   useEffect(() => {
-
+    const redirectUser = async () => {
     if (isAuthenticated) {
       switch (user.rol) {
         case "client":
-          return navigate("/client");
+          return navigate("/");
         case "restaurant":
           return navigate("/restaurant");
         default:
           return logout();
       }
     }
+  };
+  redirectUser();
   }, [isAuthenticated, logout, user, navigate]);
 
   return (

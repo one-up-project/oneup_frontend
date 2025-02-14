@@ -13,26 +13,32 @@ function Register() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(registerSchema), // verifica que los datos sean correctos
   });
   const navigate = useNavigate();
 
   const onSubmit = async (value) => {
-    await signup(value);
+    await signup(value); // envía los datos del formulario a la función signup de authContext
   };
 
+  console.log(isAuthenticated);
+
   useEffect(() => {
+    const redirectUser = async () => {
     if (isAuthenticated) {
       switch (user.rol) {
         case "client":
-          return navigate("/client");
+          //console.log(user.rol);
+          return navigate("/"); // redirige a home
         case "restaurant":
           return navigate("/restaurant");
         default:
           return logout();
       }
     }
-  }, [isAuthenticated]);
+  };
+  redirectUser();
+  }, [isAuthenticated, user, navigate, logout]);
 
   return (
     <div className="container_register">
