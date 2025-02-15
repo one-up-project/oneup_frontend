@@ -1,11 +1,11 @@
 @import "../../responsive.scss";
+@import "../../styles/colors.scss";
 .layout{
     height: 100vh;
-    max-width: 1366px;
+    max-width: max-content;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+
     
     @include large{
         //background-color: rgb(226, 157, 157);

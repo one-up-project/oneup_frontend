@@ -1,3 +1,4 @@
+
 .top-bar {
     position: relative;
     width: 100%;
@@ -15,6 +16,10 @@
     border: none;
     background: none;
     cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    
   }
   
   .top-bar-button .icon {

@@ -1,20 +1,24 @@
 @import "../../responsive.scss";
+@import "../../styles/colors.scss";
 
 nav{
     display: flex;
     justify-content: space-between;
     height: 100px;
     align-items: center;
-
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+    padding-left: 20px;
+    padding-right: 20px;
     a{
         transition: all 0.2s ease;
-
+        
         @include small{
             display: none;
         }
 
         &:hover{
             scale: 1.05;
+            color: $primary-600;
         }
     }
 
@@ -66,10 +70,26 @@ nav{
             margin: 10px;
         }
         .register-store{
-            background-color: rgb(29, 221, 29);
+            background-color: $primary-300;
+            background-color: $primary-300;
+            border: none;
+            border-radius: 17px;
+            transition: all 0.2s ease;
+            color: $dark-primary-color;
+            &:hover {
+                background-color: $primary-600;
+                color: $dark-primary-color;
+              }
         }
         .register-customer{
-            background-color: rgb(29, 221, 29);
+            background-color: $primary-300;
+            border: none;
+            border-radius: 17px;
+            transition: all 0.2s ease;
+            &:hover {
+                background-color: $primary-600;
+                color: $dark-primary-color;
+              }
         }
     }
 
