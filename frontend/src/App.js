@@ -7,6 +7,8 @@ import StoreNavbar from "./components/navbar/StoreNavbar";
 import Home from "./pages/home/Home";
 import UserManagement from "./pages/usermanagement/UserManagement";
 import UserProfile from "./pages/usermanagement/UserProfile";
+import UserHistory from "./pages/usermanagement/UserHistory";
+import UserFavorites from "./pages/usermanagement/UserFavorites";
 
 import StoreManagement from "./pages/storemanagement/StoreManagement";
 import StoreProfile from "./pages/storemanagement/StoreProfile";
@@ -32,6 +34,8 @@ function App() {
             {/* User Management */}
             <Route path="/usermanagement" element={<UserManagement />} />
             <Route path="/usermanagement/profile" element={<UserProfile />} />
+            <Route path="/usermanagement/history" element={<UserHistory />} />
+            <Route path="/usermanagement/favorites" element={<UserFavorites />} />
 
             {/* Store Management */}
             <Route path="/storemanagement" element={<StoreManagement />} />
