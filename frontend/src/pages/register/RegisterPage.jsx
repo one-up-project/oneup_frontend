@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { Link, useNavigate } from "react-router-dom"; // npm install react-router-dom
-import { useForm } from "react-hook-form"; // npm install react-hook-form
+import { useForm  } from "react-hook-form"; // npm install react-hook-form
 import { registerSchema } from "../../schemas/auth"; // verifica que los datos sean correctos
 import { zodResolver } from "@hookform/resolvers/zod"; // npm install @hookform/resolvers
 import "./register.css";
@@ -17,17 +17,44 @@ function Register() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(registerSchema), // verifica que los datos sean correctos
   });
+
   const navigate = useNavigate();
+
+// Función para obtener geolocalización
+  const [geoError, setGeoError] = useState("");
+  const [geoSuccess, setGeoSuccess] = useState("");
+
+  
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setGeoError("Geolocalización no soportada por tu navegador");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setValue("latitude", position.coords.latitude);
+        setValue("longitude", position.coords.longitude);
+        setGeoSuccess("Ubicación obtenida correctamente");
+        setGeoError("");
+      },
+      (error) => {
+        setGeoError("Debes permitir el acceso a tu ubicación para continuar");
+        setValue("latitude", null);
+        setValue("longitude", null);
+      }
+    );
+  };
 
   const onSubmit = async (value) => {
     await signup(value); // envía los datos del formulario a la función signup de authContext
+    //console.log(value);
   };
-
-  console.log(isAuthenticated);
 
   useEffect(() => {
     const redirectUser = async () => {
@@ -46,6 +73,8 @@ function Register() {
     redirectUser();
   }, [isAuthenticated, user, navigate, logout]);
 
+  // Obtener geolocalización
+  
   return (
     <div className="container_register">
       <section className="section_register">
@@ -162,10 +191,11 @@ function Register() {
 
             <select
               className="select_register"
+              defaultValue="client" // Valor inicial
               id="rol"
               {...register("rol", { required: true })}
             >
-              <option disabled selected hidden>
+              <option value="default" disabled selected hidden>
                 Selecciona tu rol
               </option>
               <option value="client">Persona natural</option>
@@ -175,6 +205,19 @@ function Register() {
               <p className="text-red-500 text-sm mt-1">{errors.rol?.message}</p>
             )}
           </div>
+
+          {/* Botón de geolocalización */}
+        <div className="form-group">
+          <button
+            type="button"
+            onClick={getLocation}
+            className="button_register"
+          >
+            Obtener mi ubicación automática
+          </button>
+          {geoError && <span className="error-message">{geoError}</span>}
+          {geoSuccess && <span className="success-message">{geoSuccess}</span>}
+        </div>
 
           <button type="submit" className="button_register">
             Crear

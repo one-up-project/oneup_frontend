@@ -11,7 +11,9 @@ const REGISTER_USER = gql`
       email
       password
       phone
-      rol 
+      rol
+      lat
+      long
     }
   }
 `;
@@ -31,6 +33,8 @@ export const useRegisterRequest = () => {
       password
       phone
       rol
+      lat
+      long
     }
   }
 `;

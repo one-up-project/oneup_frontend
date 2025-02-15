@@ -40,7 +40,9 @@ export const AuthProvider = ({ children }) => {
       email: user.email,
       password: user.password,
       phone: user.phone,
-      rol: user.rol // Asegúrate de incluir este campo
+      rol: user.rol, // Asegúrate de incluir este campo
+      lat: user.latitude,
+      long: user.longitude,
     };
 
     try {
@@ -66,7 +68,9 @@ export const AuthProvider = ({ children }) => {
       email: user.email,
       password: user.password,
       phone: user.phone,
-      rol: user.rol // Asegúrate de incluir este campo
+      rol: user.rol, // Asegúrate de incluir este campo
+      lat: user.latitude,
+      long: user.longitude,
     };
 
     try {
