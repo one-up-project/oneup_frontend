@@ -15,7 +15,6 @@ function Navbar() {
         <a href="/">Contacto</a>
       </div>
       <div className="right">
-{console.log(isAuthenticated)}
         {isAuthenticated ? (
           <>
             <label>

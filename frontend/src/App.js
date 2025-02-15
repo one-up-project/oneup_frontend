@@ -3,9 +3,11 @@ import Layout from "./pages/layout/Layout";
 import Home from "./pages/home/Home";
 import Search from "./pages/search/Search";
 
-import {LoginPage} from "./pages/login/LoginPage";
+import LoginPage from "./pages/login/LoginPage";
 import Register from "./pages/register/RegisterPage";
 import { AuthProvider } from "./context/authContext";
+
+
 
 function App() {
   const router = createBrowserRouter([
@@ -23,7 +25,7 @@ function App() {
         },
         {
           path: "/login",
-          element:<LoginPage /> , // en authContext solicita que la ruta este en AuthProvider
+          element: <LoginPage />, // en authContext solicita que la ruta este en AuthProvider
         },
         {
           path: "/register",

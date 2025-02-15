@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
-import { loginRequest, useRegisterRequest, verifyTokenRequest } from "../api/auth";
+import { useLoginRequest, useRegisterRequest, verifyTokenRequest } from "../api/auth";
+//import { useLoginRequest, useRegisterRequest, useVerifyTokenRequest } from "../api/auth";
 import Cookies from "js-cookie"; // npm install js-cookie
 
 const AuthContext = createContext();
@@ -14,6 +15,8 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
 
   const registerRequest = useRegisterRequest(); //Transforma la función para que se pueda usar en el contexto
+  const loginRequest = useLoginRequest(); //Transforma la función para que se pueda usar en el contexto
+  //const verifyTokenRequest = useVerifyTokenRequest(); //Transforma la función para que se pueda usar en el contexto
 
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -57,16 +60,32 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signin = async (user) => {
+
+    const userData = {
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      phone: user.phone,
+      rol: user.rol // Asegúrate de incluir este campo
+    };
+
     try {
-      const res = await loginRequest(user);
-      setUser(res.data.createUser);
+      const res = await loginRequest({ // llama a la función y manda por método post a la ruta /register el usuario 
+        variables: {
+          input: userData // <-- Clave "input" requerida
+        }
+      });
+      //console.log(res.data.loginUser);
+      setUser(res.data.loginUser);
       setIsAuthenticated(true);
+
     } catch (error) {
-      console.log(error);
-      // setErrors(error.response.data.message);
+      const errorMessage = error.response?.data?.message || error.message;
+      setErrors([errorMessage]); // Asigna un array
     }
   };
 
+/**/
   const logout = () => {
     Cookies.remove("token");
     setUser(null);
@@ -74,6 +93,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+/*
+    const userData = {
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      phone: user.phone,
+      rol: user.rol // Asegúrate de incluir este campo
+    };
+*/
     const checkLogin = async () => {
       const cookies = Cookies.get();
       if (!cookies.token) {
@@ -81,11 +109,17 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
         return;
       }
-
       try {
         const res = await verifyTokenRequest(cookies.token);
-        console.log(res);
+/*
+        const res = await verifyTokenRequest({ 
+          variables: {
+            input: userData // <-- Clave "input" requerida
+          }
+        });
+*/
         if (!res.data.createUser) return setIsAuthenticated(false);
+
         setIsAuthenticated(true);
         setUser(res.data.createUser);
         setLoading(false);
@@ -95,7 +129,8 @@ export const AuthProvider = ({ children }) => {
       }
     };
     checkLogin();
-  }, []);
+  //});
+ }, []);
 
   return (
     <AuthContext.Provider
