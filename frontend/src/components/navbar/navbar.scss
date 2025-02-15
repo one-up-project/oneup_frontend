@@ -11,6 +11,7 @@ nav{
     padding-right: 20px;
     a{
         transition: all 0.2s ease;
+        color: $dark-primary-color;
         
         @include small{
             display: none;
@@ -60,6 +61,7 @@ nav{
         height: 100%;
 
         span{
+            color: $primary-900;
             @include small{
                 display: none;
             }

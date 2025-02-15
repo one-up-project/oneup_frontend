@@ -1,6 +1,7 @@
 import React from "react";
 import "./home.scss";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUtensils, faLeaf, faMapMarkerAlt, faCoffee } from '@fortawesome/free-solid-svg-icons';
 const Home = () => {
   return (
     <div className="home-page">
@@ -9,33 +10,39 @@ const Home = () => {
           One Up, la plataforma que te ayudara a formar parte del cambio y a
           reducir el desperdicio de alimentos
         </h2>
-        <p>
+        <p className="subtext">
           Unete a esta gran comunidad en donde podras encontrar excelentes
           productos a un precio excepcional y aportar tu granito de arena en la
           lucha contra el desperdicio
         </p>
       </div>
       <div className="question">
-        <p>¿Por que usar OneUP?</p>
+        <p className="text">¿Por que usar OneUP?</p>
       </div>
-      <div className="container">
-        <div className="img-container">
-          <img src="/food-ppal-page.jpg" alt="" />
-        </div>
-        <div className="text-container">
-          <h3> Disfruta de buena comida a la mitad del precio o menos</h3>{" "}
-          <br />
-          <h3>
-            Ayuda al medio ambiente reduciendo el desperdicio de alimentos
-          </h3>{" "}
-          <br />
-          <h3>Rescata comida cerca a ti</h3> <br />
-          <h3>
-            Prueba algo nuevo de cafeterias, panaderias o restaurantes
-          </h3>{" "}
-          <br />
-        </div>
+
+      <section className="benefits">
+      <div className="benefit-card">
+        <FontAwesomeIcon icon={faUtensils} className="benefit-icon" />
+        <div className="benefit-title">Disfruta de buena comida</div>
+        <div className="benefit-description">A la mitad del precio o menos.</div>
       </div>
+      <div className="benefit-card">
+        <FontAwesomeIcon icon={faLeaf} className="benefit-icon" />
+        <div className="benefit-title">Ayuda al medio ambiente</div>
+        <div className="benefit-description">Reduciendo el desperdicio de alimentos.</div>
+      </div>
+      <div className="benefit-card">
+        <FontAwesomeIcon icon={faMapMarkerAlt} className="benefit-icon" />
+        <div className="benefit-title">Rescata comida cerca de ti</div>
+        <div className="benefit-description">Encuentra ofertas en tu localidad.</div>
+      </div>
+      <div className="benefit-card">
+        <FontAwesomeIcon icon={faCoffee} className="benefit-icon" />
+        <div className="benefit-title">Prueba algo nuevo</div>
+        <div className="benefit-description">De cafeterías, panaderías o restaurantes.</div>
+      </div>
+    </section>
+
       <div className="how-to">
         <p>¿Como funciona?</p>
       </div>
