@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import "./navbar.scss";
+import { useAuth } from "../../context/authContext";
+import { Link } from "react-router-dom"; // npm install react-router-dom
 
 function Navbar() {
+  const { isAuthenticated, user, logout} = useAuth();
   return (
     <nav className="navbar">
       <div className="left">
@@ -13,15 +16,31 @@ function Navbar() {
         <a href="/">Contacto</a>
       </div>
       <div className="right">
-        <a href="logo"> Iniciar sesion</a>
-        <span>Registrate como:</span>
-        <Link className="register-customer" to="/user/home">
-          Cliente
-        </Link>
-        <Link className="register-store" to="/store/home">
-          Tienda
-        </Link>
+        {isAuthenticated ? (
+          <>
+            <label>
+              Hola {user.username}
+            </label>
+            {/* */}
+            <label className=".navbar_label">
+              <Link to="/" onClick={() => logout()}>
+                Cerrar sesión
+              </Link>
+            </label>
+          </>
+        ) : (
+          <>
+              <Link to="/login">Inicio sesión</Link>
+              <Link to="/register">Registro</Link>
+          </>
+        )}
 
+
+
+        
+        <a className="register-store" href="">
+          Tienda
+        </a>
       </div>
     </nav>
   );

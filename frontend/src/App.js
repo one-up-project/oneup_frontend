@@ -8,11 +8,17 @@ import HomeUser from "./pages/home/HomeUser";
 import StoreSearch from "./pages/store/store_search/StoreSearch";
 import StoreProfile from "./pages/store/store_profile/StoreProfile";
 
+import LoginPage from "./pages/login/LoginPage";
+import Register from "./pages/register/RegisterPage";
+import { AuthProvider } from "./context/authContext";
+
+
+
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: <AuthProvider><Layout /></AuthProvider>,
       children: [
         {
           path: "/",
@@ -51,6 +57,14 @@ function App() {
               element: <StoreProfile/>
             },
           ],
+        },
+        {
+          path: "/login",
+          element: <LoginPage />, // en authContext solicita que la ruta este en AuthProvider
+        },
+        {
+          path: "/register",
+          element: <Register />, // en authContext solicita que la ruta este en AuthProvider
         },
       ],
     },
