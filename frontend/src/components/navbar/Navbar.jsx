@@ -30,13 +30,9 @@ function Navbar() {
         ) : (
           <>
               <Link to="/login">Inicio sesión</Link>
-              <Link to="/register">Registro</Link>
+              <Link to="/register" className="register-customer">Registrarse</Link>
           </>
         )}
-        {/* Aqui iban los botones*/}
-        <a className="register-store" href="">
-          Tienda
-        </a>
       </div>
     </nav>
   );
