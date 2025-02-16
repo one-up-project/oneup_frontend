@@ -191,7 +191,7 @@ function Register() {
 
             <select
               className="select_register"
-              defaultValue="client" // Valor inicial
+              //defaultValue="client" // Valor inicial
               id="rol"
               {...register("rol", { required: true })}
             >

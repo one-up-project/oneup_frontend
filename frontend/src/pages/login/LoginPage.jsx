@@ -33,7 +33,7 @@ function LoginPage() {
   useEffect(() => {
     const redirectUser = async () => {
       if (isAuthenticated) {
-/**/ console.log(user.rol);
+/* console.log(user.rol);*/
         switch (user.rol) {
           case "client":
             return navigate("/");

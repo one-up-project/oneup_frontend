@@ -3,10 +3,11 @@ import axios from "./axios"; // importa axios de axios.js
 import { gql, useMutation} from "@apollo/client";
 
 //export const registerRequest = async (user) => axios.post(`/register`, user); // función que manda por método post a la ruta /register el usuario
-
+// esto trae los campos que le da el backend al api gateway
 const REGISTER_USER = gql`
   mutation createUser($input: UserInput!) {
     createUser(input: $input) {
+      id
       username
       email
       password
@@ -28,6 +29,7 @@ export const useRegisterRequest = () => {
   const LOGIN_USER = gql`
   mutation loginUser($input: UserLogin!) {
     loginUser(input: $input) {
+      id
       username
       email
       password
