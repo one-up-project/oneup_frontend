@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "./navbar.scss";
 import { useAuth } from "../../context/authContext";
-import { Link } from "react-router-dom"; // npm install react-router-dom
 
 function Navbar() {
   const { isAuthenticated, user, logout} = useAuth();
@@ -34,10 +33,7 @@ function Navbar() {
               <Link to="/register">Registro</Link>
           </>
         )}
-
-
-
-        
+        {/* Aqui iban los botones*/}
         <a className="register-store" href="">
           Tienda
         </a>
