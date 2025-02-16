@@ -1,0 +1,98 @@
+@import "../../responsive.scss";
+@import "../../styles/colors.scss";
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+    align-items: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+    padding-left: 20px;
+    padding-right: 20px;
+    a{
+        transition: all 0.2s ease;
+        color: $dark-primary-color;
+        
+        @include small{
+            display: none;
+        }
+
+        &:hover{
+            scale: 1.05;
+            color: $primary-600;
+        }
+    }
+
+    .left{
+        flex:3;
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        //background-color: rgb(236, 241, 234);
+        .logo{
+            font-weight: bold;
+            font-size: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+            img{
+                width: 50px;
+                height: 50px;
+            }
+
+            span{
+                @include medium{
+                    display: none;
+                }
+                @include small{
+                    display: initial;
+                }
+            }
+        }
+    }
+    .right{
+        flex:2;
+        //background-color: rgb(248, 248, 245);
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+        height: 100%;
+
+        span{
+            color: $primary-900;
+            @include small{
+                display: none;
+            }
+        }
+
+        a{
+            padding: 12px 24px;
+            margin: 10px;
+        }
+        .register-store{
+            background-color: $primary-300;
+            background-color: $primary-300;
+            border: none;
+            border-radius: 17px;
+            transition: all 0.2s ease;
+            color: $dark-primary-color;
+            &:hover {
+                background-color: $primary-600;
+                color: $dark-primary-color;
+              }
+        }
+        .register-customer{
+            background-color: $primary-300;
+            border: none;
+            border-radius: 17px;
+            transition: all 0.2s ease;
+            &:hover {
+                background-color: $primary-600;
+                color: $dark-primary-color;
+              }
+        }
+    }
+
+}

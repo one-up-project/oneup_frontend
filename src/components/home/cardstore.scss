@@ -1,0 +1,88 @@
+.card {
+    position: relative;
+    width: 350px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background: white;
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+  }
+  
+  .card-image {
+    position: relative;
+  }
+  
+  .card-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  
+  .card-content {
+    padding: 15px;
+  }
+  
+  .card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .rating, .distance, .price {
+    background: #f0f0f0;
+    padding: 5px 8px;
+    border-radius: 5px;
+  }
+  
+  .price {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .title {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  .pickup-time {
+    font-size: 14px;
+    color: #444;
+  }
+  
+  .see-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .see-more:hover {
+    text-decoration: underline;
+  }
+  .card-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  
+    button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &.update-button {
+        background-color: #4caf50;
+        color: white;
+      }
+  
+      &.delete-button {
+        background-color: #f44336;
+        color: white;
+      }
+    }
+  }
