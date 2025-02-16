@@ -7,7 +7,7 @@ const NavbarHome = () => {
   const location = useLocation();
   
   const basePath = location.pathname.startsWith("/store") ? "/store" : "/user";
-  const isStore = location.pathname.startsWith("/store"); 
+  const isStore = location.pathname.startsWith("/store");
 
   return (
     <div className="top-bar">

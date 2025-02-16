@@ -14,18 +14,13 @@ const HomeUser = () => {
                 if (!response.ok) throw new Error("Error en la API");
 
                 const data = await response.json();
-                if (data.length > 0) {
-                    setProducts(data); // ✅ Usa los productos del backend si están disponibles
-                } else {
-                    setProducts([ // ✅ Carga ejemplos solo si no hay productos en el backend
-                        { id: 1, name: "Producto Ejemplo 1", image: "/default-product.jpg" },
-                        { id: 2, name: "Producto Ejemplo 2", image: "/default-product.jpg" },
-                        { id: 3, name: "Producto Ejemplo 3", image: "/default-product.jpg" }
-                    ]);
-                }
+                setProducts(data.length > 0 ? data : [
+                    { id: 1, name: "Producto Ejemplo 1", image: "/default-product.jpg" },
+                    { id: 2, name: "Producto Ejemplo 2", image: "/default-product.jpg" },
+                    { id: 3, name: "Producto Ejemplo 3", image: "/default-product.jpg" }
+                ]);
             } catch (error) {
                 console.error("Error al obtener productos:", error);
-                // Si hay un error, carga productos de ejemplo
                 setProducts([
                     { id: 1, name: "Producto Ejemplo 1", image: "/default-product.jpg" },
                     { id: 2, name: "Producto Ejemplo 2", image: "/default-product.jpg" },
@@ -61,6 +56,11 @@ const HomeUser = () => {
             ) : (
                 <p>No hay productos disponibles en este momento.</p>
             )}
+
+            {/* ✅ Sección adicional de "Productos disponibles" */}
+            <div className="layer">
+                <h1>Productos disponibles</h1>
+            </div>
         </div>
     );
 };

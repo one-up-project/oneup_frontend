@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AuthProvider } from "./context/authContext"; // Asegúrate de importar AuthProvider correctamente
 import Layout from "./pages/layout/Layout";
 import Home from "./pages/home/Home";
 import Search from "./pages/search/Search";
@@ -8,16 +7,18 @@ import Store from "./pages/store/Store";
 import HomeUser from "./pages/home/HomeUser";
 import StoreSearch from "./pages/store/store_search/StoreSearch";
 import StoreProfile from "./pages/store/store_profile/StoreProfile";
-import HistorialStore from "./pages/store/store_historial/StoreHistorial.jsx";
-import HistorialUser from "./pages/user/UserHistorial";
-import Favorites from "./pages/user/Favorites.jsx";
-import UserProfile from "./pages/user/UserProfile";  
+
+import LoginPage from "./pages/login/LoginPage";
+import Register from "./pages/register/RegisterPage";
+import { AuthProvider } from "./context/authContext";
+
+
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: <AuthProvider><Layout /></AuthProvider>,
       children: [
         {
           path: "/",
@@ -34,18 +35,6 @@ function App() {
               path: "home",
               element: <HomeUser />,
             },
-            {
-              path: "history",
-              element: <HistorialUser />,
-            },
-            {
-              path: "favorites",
-              element: <Favorites />,
-            },
-            {
-              path: "profile",
-              element: <UserProfile />,
-            },
           ],
         },
         {
@@ -55,33 +44,33 @@ function App() {
               path: "home",
               element: <Home2 />,
             },
-            {
-              path: "form",
-              element: <Store />,
+            { path: "form",
+              element: <Store />
+
             },
             {
               path: "search",
-              element: <StoreSearch />,
-            },
-            {
-              path: "history",
-              element: <HistorialStore />,
+              element: <StoreSearch/>
             },
             {
               path: "profile",
-              element: <StoreProfile />,
+              element: <StoreProfile/>
             },
           ],
+        },
+        {
+          path: "/login",
+          element: <LoginPage />, // en authContext solicita que la ruta este en AuthProvider
+        },
+        {
+          path: "/register",
+          element: <Register />, // en authContext solicita que la ruta este en AuthProvider
         },
       ],
     },
   ]);
 
-  return (
-    <AuthProvider> {/* 🔥 Aquí envuelves la app con AuthProvider */}
-      <RouterProvider router={router} />
-    </AuthProvider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
