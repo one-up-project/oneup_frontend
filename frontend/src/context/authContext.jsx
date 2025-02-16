@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }) => {
   const signup = async (user) => {
 
     const userData = {
+      id: user.id,
       username: user.username,
       email: user.email,
       password: user.password,
@@ -64,6 +65,7 @@ export const AuthProvider = ({ children }) => {
   const signin = async (user) => {
 
     const userData = {
+      id: user.id,
       username: user.username,
       email: user.email,
       password: user.password,
