@@ -18,6 +18,9 @@ const NavbarHome = () => {
 
   return (
     <div className="top-bar">
+      <a className="logo" href="/">
+        <img src="/logo3.png" alt="Logo de la compania" />
+      </a>
       <Link to={`${basePath}/home`}>
         <button className="top-bar-button">
           <HomeIcon className="icon" />

@@ -1,16 +1,16 @@
 import React from "react";
 import "./homeStore.scss";
-import CardSotre from "../../../components/home/CardStore";
+import CardStore from "../../../components/random-bag/CardStore";
 import { Link } from "react-router-dom";
 const HomeStore = () => {
   return (
     <div className="layer">
       <h1>Lista de publicaciones</h1>
       <Link to="/store/form">
-        <button className="add-store-btn">Agregar Tienda</button>
+        <button className="add-store-btn">Agregar Bolsa Sorpresa</button>
       </Link>
       <div className="cards">
-        <CardSotre />
+        <CardStore />
       </div>
     </div>
   );
