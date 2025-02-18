@@ -2,10 +2,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./pages/layout/Layout";
 import Home from "./pages/home/Home";
 import Search from "./pages/search/Search";
-import Home2 from "./pages/home2/Home2";
+import HomeStore from "./pages/store/home-store/HomeStore";
 import Store from "./pages/store/Store";
-import HomeUser from "./pages/home/HomeUser";
-import StoreSearch from "./pages/store/store_search/StoreSearch";
+import HomeUser from "./pages/user/home-user/HomeUser";
+import FavoritesUser from "./pages/user/favorites-user/FavoritesUser";
+import ProfileUser from "./pages/user/profile-user/ProfileUser";
 import StoreProfile from "./pages/store/store_profile/StoreProfile";
 
 function App() {
@@ -29,6 +30,14 @@ function App() {
               path: "home",
               element: <HomeUser />,
             },
+            {
+              path: "favorites",
+              element: <FavoritesUser />,
+            },
+            {
+              path: "profile",
+              element: <ProfileUser />,
+            },
           ],
         },
         {
@@ -36,19 +45,16 @@ function App() {
           children: [
             {
               path: "home",
-              element: <Home2 />,
+              element: <HomeStore />,
             },
-            { path: "form",
-              element: <Store />
-
-            },
+            { path: "form", element: <Store /> },
             {
               path: "search",
-              element: <StoreSearch/>
+              element: <Search />,
             },
             {
               path: "profile",
-              element: <StoreProfile/>
+              element: <StoreProfile />,
             },
           ],
         },

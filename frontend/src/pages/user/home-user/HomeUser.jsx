@@ -1,11 +1,11 @@
 import React from "react";
 
-const StoreProfile = () => {
+const HomeUser = () => {
   return (
     <div className="layer">
-      <h1>perfil tienda</h1>
+      <h1>Home usuario</h1>
     </div>
   );
 };
 
-export default StoreProfile;
+export default HomeUser;
