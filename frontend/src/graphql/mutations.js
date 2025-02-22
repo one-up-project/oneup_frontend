@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_RANDOM_BAG = gql`
   mutation CreateRandomBag($input: RandomBagInput!) {
@@ -17,6 +17,14 @@ export const CREATE_RANDOM_BAG = gql`
 export const DELETE_RANDOM_BAG = gql`
   mutation DeleteRandomBag($random_bag_id: Int!) {
     deleteRandomBag(random_bag_id: $random_bag_id) {
+      random_bag_id
+    }
+  }
+`;
+
+export const RESERVE_RANDOM_BAG = gql`
+  mutation ReserveRandomBag($user_id: Int!, $random_bag_id: Int!) {
+    reserveRandomBag(user_id: $user_id, random_bag_id: $random_bag_id) {
       random_bag_id
     }
   }

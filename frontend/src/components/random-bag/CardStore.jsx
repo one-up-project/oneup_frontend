@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_RANDOM_BAGS } from "../../graphql/queries";
-import { DELETE_RANDOM_BAG } from "../../graphql/mutations";
+import { DELETE_RANDOM_BAG, RESERVE_RANDOM_BAG } from "../../graphql/mutations";
 import { Link } from "react-router-dom";
 import "./cardstore.scss";
 import { useState } from "react";
@@ -15,6 +15,11 @@ const CardStore = () => {
   });
   // Mutación para eliminar una random_bag
   const [deleteRandomBag] = useMutation(DELETE_RANDOM_BAG, {
+    refetchQueries: [{ query: GET_RANDOM_BAGS }],
+  });
+
+  //reservar producto
+  const [reserveRandomBag] = useMutation(RESERVE_RANDOM_BAG, {
     refetchQueries: [{ query: GET_RANDOM_BAGS }],
   });
 
@@ -52,6 +57,20 @@ const CardStore = () => {
   const handleUpdate = (random_bag_id) => {
     console.log("Actualizar Random Bag con ID:", random_bag_id);
     // Aquí puedes redirigir a un formulario de edición o abrir un modal
+  };
+
+  const handleReserve = async (random_bag_id) => {
+    localStorage.setItem("user", JSON.stringify({ id: 1 }));
+    const userID = JSON.parse(localStorage.getItem("user")).id;
+
+    if (userID) {
+      console.log("User ID:", userID);
+      await reserveRandomBag({ variables: { user_id: userID, random_bag_id } });
+      alert("Reserva realizada, realiza tu pago lo mas pronto posible");
+    } else {
+      console.error("No se encontró el ID del usuario");
+      alert("No se pudo realizar la reserva");
+    }
   };
 
   return (
@@ -105,7 +124,12 @@ const CardStore = () => {
               </div>
             ) : (
               <div className="card-actions">
-                <button className="reserve-button">Reservar</button>
+                <button
+                  className="reserve-button"
+                  onClick={() => handleReserve(randomBag.random_bag_id)}
+                >
+                  Reservar
+                </button>
               </div>
             )}
           </div>
