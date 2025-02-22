@@ -2,9 +2,10 @@ import React from "react";
 import {
   HomeIcon,
   SearchIcon,
-  HeartIcon,
+  PackageCheck,
   UserIcon,
   LogOutIcon,
+  ShoppingBasket,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import "./navbarhome.scss";
@@ -33,11 +34,19 @@ const NavbarHome = () => {
           <span className="label">Buscar</span>
         </button>
       </Link>
-      {!isStore && (
-        <Link to={`${basePath}/favorites`}>
+      {isStore && (
+        <Link to={`${basePath}/pending`}>
           <button className="top-bar-button">
-            <HeartIcon className="icon" />
-            <span className="label">Favoritos</span>
+            <PackageCheck className="icon" />
+            <span className="label">Pendientes</span>
+          </button>
+        </Link>
+      )}
+      {!isStore && (
+        <Link to={`${basePath}/reserved`}>
+          <button className="top-bar-button">
+            <ShoppingBasket className="icon" />
+            <span className="label">Reservados</span>
           </button>
         </Link>
       )}

@@ -5,9 +5,10 @@ import Search from "./pages/search/Search";
 import HomeStore from "./pages/store/home-store/HomeStore";
 import Store from "./pages/store/Store";
 import HomeUser from "./pages/user/home-user/HomeUser";
-import FavoritesUser from "./pages/user/favorites-user/FavoritesUser";
+import Reserved from "./pages/user/reserved-user/Reserved";
 import ProfileUser from "./pages/user/profile-user/ProfileUser";
 import StoreProfile from "./pages/store/store_profile/StoreProfile";
+import Pending from "./pages/store/pending/Pending";
 
 function App() {
   const router = createBrowserRouter([
@@ -31,8 +32,8 @@ function App() {
               element: <HomeUser />,
             },
             {
-              path: "favorites",
-              element: <FavoritesUser />,
+              path: "reserved",
+              element: <Reserved />,
             },
             {
               path: "profile",
@@ -55,6 +56,10 @@ function App() {
             {
               path: "profile",
               element: <StoreProfile />,
+            },
+            {
+              path: "pending",
+              element: <Pending />,
             },
           ],
         },

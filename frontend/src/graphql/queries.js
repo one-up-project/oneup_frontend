@@ -19,3 +19,9 @@ export const GET_RANDOM_BAGS = gql`
     }
   }
 `;
+
+export const GET_USER_ORDERS = gql`
+query GetUserOrders {
+
+}
+  `;
