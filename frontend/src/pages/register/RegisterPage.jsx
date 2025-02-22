@@ -61,9 +61,9 @@ function Register() {
       if (isAuthenticated) {
         switch (user.rol) {
           case "client":
-            return navigate("/"); // redirige a home
+            return navigate("/user/home"); // redirige a home
           case "restaurant":
-            return navigate("/restaurant");
+            return navigate("/store/home");
           default:
             return logout();
           //return console.log("No tiene un rol asignado");

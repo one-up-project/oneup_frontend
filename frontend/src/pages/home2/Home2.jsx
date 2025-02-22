@@ -2,6 +2,8 @@ import React from "react";
 import "./home2.scss";
 import CardSotre from "../../components/home/CardStore";
 import { Link } from "react-router-dom";
+//import { useAuth } from "../../context/authContext";
+
 const Home2 = () => {
     return ( 
         <div className="layer">

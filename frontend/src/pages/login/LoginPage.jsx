@@ -36,9 +36,9 @@ function LoginPage() {
 /* console.log(user.rol);*/
         switch (user.rol) {
           case "client":
-            return navigate("/");
+            return navigate("/user/home");
           case "restaurant":
-            return navigate("/restaurant");
+            return navigate("/store/home");
           default:
             return logout();
           //return console.log("No tiene un rol asignado");
@@ -91,7 +91,7 @@ function LoginPage() {
               {errors.password?.message}
             </p>
           </div>
-
+          
           <button className="button_login" type="submit">
             Iniciar
           </button>
