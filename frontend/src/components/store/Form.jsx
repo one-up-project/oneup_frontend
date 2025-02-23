@@ -3,17 +3,19 @@ import { useMutation } from "@apollo/client";
 import { CREATE_RANDOM_BAG } from "../../graphql/mutations";
 import { XIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import './form.scss';
+import { useAuth } from "../../context/authContext";
+import "./form.scss";
 
 const Form = () => {
   const { user, isAuthenticated } = useAuth(); // Obtén el usuario autenticado
   const location = useLocation();
   const [formData, setFormData] = useState({
-    store_id: '',
-    description: '',
-    total_price: '',
-    discount_price: '',
-    pick_up_time: '',
+    store_id: user?.id || "", // Usa el ID del usuario autenticado
+    username: user?.username || "", // Usa el nombre de usuario autenticado
+    description: "",
+    total_price: "",
+    discount_price: "",
+    pick_up_time: "",
     available: false,
   });
 
@@ -24,23 +26,24 @@ const Form = () => {
       const { randomBag } = location.state;
       console.log("Datos recibidos en el formulario:", randomBag); // Depuración
       setFormData({
-        store_id: randomBag.store_id,
-        description: randomBag.description,
-        total_price: randomBag.total_price,
-        discount_price: randomBag.discount_price,
-        pick_up_time: randomBag.pick_up_time,
-        available: randomBag.available,
+        store_id: randomBag.store_id || user?.id || "",
+        username: randomBag.username || user?.username || "",
+        description: randomBag.description || "",
+        total_price: randomBag.total_price || "",
+        discount_price: randomBag.discount_price || "",
+        pick_up_time: randomBag.pick_up_time || "",
+        available: randomBag.available || false,
       });
     }
-  }, [location.state]);
-  
+  }, [location.state, user]);
+
   const [createRandomBag] = useMutation(CREATE_RANDOM_BAG);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    // Si el campo que cambia es total_price, calculamos el 30% y lo asignamos a discount_price
-    if (name === 'total_price') {
+    // Si el campo que cambia es total_price, calcula el 30% de descuento
+    if (name === "total_price") {
       const totalPrice = parseFloat(value);
       const discountPrice = totalPrice * 0.7;
       setFormData({
@@ -57,9 +60,6 @@ const Form = () => {
   };
 
   const handleSubmit = async (e) => {
-    //tomar id de tienda del local storage
-    const id = JSON.parse(localStorage.getItem("store")).id;
-
     e.preventDefault();
 
     // Verifica si el usuario está autenticado
@@ -72,7 +72,8 @@ const Form = () => {
       const { data } = await createRandomBag({
         variables: {
           input: {
-            store_id: parseInt(formData.store_id),
+            store_id: parseInt(user.id), // Usa el ID del usuario autenticado
+            username: user.username, // Usa el nombre de usuario autenticado
             description: formData.description,
             total_price: parseFloat(formData.total_price),
             discount_price: parseFloat(formData.discount_price),
@@ -87,11 +88,12 @@ const Form = () => {
 
       // Reinicia el formulario
       setFormData({
-        store_id: '',
-        description: '',
-        total_price: '',
-        discount_price: '',
-        pick_up_time: '',
+        store_id: user.id,
+        username: user.username,
+        description: "",
+        total_price: "",
+        discount_price: "",
+        pick_up_time: "",
         available: false,
       });
     } catch (error) {
@@ -104,9 +106,7 @@ const Form = () => {
     <div className="form-container">
       <div className="form-header">
         <h1>
-          {location.state
-            ? "Actualizar bolsa sorpresa"
-            : "Crear bolsa sorpresa"}
+          {location.state ? "Actualizar bolsa sorpresa" : "Crear bolsa sorpresa"}
         </h1>
         <Link to="/store/home">
           <button className="close-button">
@@ -115,16 +115,9 @@ const Form = () => {
         </Link>
       </div>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Store ID:</label>
-          <input
-            type="number"
-            name="store_id"
-            value={formData.store_id}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        {/* Campos ocultos para store_id y username */}
+        <input type="hidden" name="store_id" value={formData.store_id} />
+        <input type="hidden" name="username" value={formData.username} />
 
         <div className="form-group">
           <label>Descripción:</label>

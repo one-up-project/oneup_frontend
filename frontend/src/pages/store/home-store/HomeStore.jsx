@@ -1,16 +1,17 @@
 import React from "react";
-import "./homeStore.scss";
-import CardStore from "../../../components/random-bag/CardStore";
+import "./home2.scss"; // Mantenemos los estilos del primer componente
+import CardStore from "../../components/home/CardStore"; // Corregimos el nombre del componente
 import { Link } from "react-router-dom";
-const HomeStore = () => {
-  //establecer datos de la tienda
+
+const Home2 = () => {
+  // Establecer datos de la tienda en localStorage (lógica del segundo componente)
   localStorage.setItem("store", JSON.stringify({ id: 1 }));
 
   return (
     <div className="layer">
       <h1>Lista de publicaciones</h1>
       <Link to="/store/form">
-        <button className="add-store-btn">Agregar Bolsa Sorpresa</button>
+        <button className="add-store-btn">Agregar bolsa sorpresa</button>
       </Link>
       <div className="cards">
         <CardStore />
@@ -19,4 +20,4 @@ const HomeStore = () => {
   );
 };
 
-export default HomeStore;
+export default Home2;

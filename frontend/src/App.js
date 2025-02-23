@@ -9,19 +9,20 @@ import Reserved from "./pages/user/reserved-user/Reserved";
 import ProfileUser from "./pages/user/profile-user/ProfileUser";
 import StoreProfile from "./pages/store/store_profile/StoreProfile";
 import UpdateForm from "./components/store/UpdateForm";
-
+import Pending from "./pages/store/pending/Pending";
 import LoginPage from "./pages/login/LoginPage";
 import Register from "./pages/register/RegisterPage";
 import { AuthProvider } from "./context/authContext";
-
-
-import Pending from "./pages/store/pending/Pending";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <AuthProvider><Layout /></AuthProvider>,
+      element: (
+        <AuthProvider>
+          <Layout />
+        </AuthProvider>
+      ),
       children: [
         {
           path: "/",
@@ -62,21 +63,25 @@ function App() {
             },
             {
               path: "profile",
-              element: <StoreProfile/>
+              element: <StoreProfile />,
             },
             {
               path: "update_form",
               element: <UpdateForm />,
-            }
+            },
+            {
+              path: "pending",
+              element: <Pending />,
+            },
           ],
         },
         {
           path: "/login",
-          element: <LoginPage />, // en authContext solicita que la ruta este en AuthProvider
+          element: <LoginPage />, // en authContext solicita que la ruta esté en AuthProvider
         },
         {
           path: "/register",
-          element: <Register />, // en authContext solicita que la ruta este en AuthProvider
+          element: <Register />, // en authContext solicita que la ruta esté en AuthProvider
         },
       ],
     },

@@ -1,29 +1,67 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_RANDOM_BAGS } from "../../graphql/queries";
 import { DELETE_RANDOM_BAG, RESERVE_RANDOM_BAG } from "../../graphql/mutations";
-import { Link, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
 import "./cardstore.scss";
-import { useState } from "react";
 
 const CardStore = () => {
-  const location = useLocation();
+  const navigate = useNavigate(); // Hook para redireccionar
+  const location = useLocation(); // Hook para obtener la ruta actual
+  const { user } = useAuth(); // Obtiene el usuario autenticado
 
-  // Determina si la ruta actual
+  // Determina si la ruta actual es /store
   const isStore = location.pathname.startsWith("/store");
 
   // Obtener los datos de random_bag
   const { loading, error, data } = useQuery(GET_RANDOM_BAGS, {
     fetchPolicy: "network-only",
   });
+
+  console.log("user", user.id);
+  console.log("Datos recibidos en el frontend:", data);
+
   // Mutación para eliminar una random_bag
   const [deleteRandomBag] = useMutation(DELETE_RANDOM_BAG, {
     refetchQueries: [{ query: GET_RANDOM_BAGS }],
   });
 
-  //reservar producto
+  // Mutación para reservar una random_bag
   const [reserveRandomBag] = useMutation(RESERVE_RANDOM_BAG, {
     refetchQueries: [{ query: GET_RANDOM_BAGS }],
   });
+
+  // Función para manejar la eliminación
+  const handleDelete = async (random_bag_id) => {
+    try {
+      console.log("Intentando eliminar random_bag con ID:", random_bag_id);
+      await deleteRandomBag({ variables: { random_bag_id } });
+      alert("Random Bag eliminada exitosamente");
+    } catch (err) {
+      console.error("Error al eliminar la Random Bag:", err);
+      alert("Hubo un error al eliminar la Random Bag");
+    }
+  };
+
+  // Función para manejar la reserva
+  const handleReserve = async (random_bag_id) => {
+    try {
+      console.log("Intentando reservar random_bag con ID:", random_bag_id);
+      await reserveRandomBag({
+        variables: { user_id: user.id, random_bag_id },
+      });
+      alert("Reserva realizada, realiza tu pago lo más pronto posible");
+    } catch (err) {
+      console.error("Error al reservar la Random Bag:", err);
+      alert("Hubo un error al reservar la Random Bag");
+    }
+  };
+
+  // Función para manejar la actualización
+  const handleUpdate = (randomBag) => {
+    // Redirige al formulario de actualización con los datos de la randomBag
+    navigate("/store/update_form", { state: { randomBag } });
+  };
 
   if (loading) {
     console.log("Cargando datos...");
@@ -41,101 +79,64 @@ const CardStore = () => {
     return <p>No hay datos disponibles</p>;
   }
 
-  console.log("Datos recibidos en el frontend:", data);
+  // Filtrar las randomBags para mostrar solo las que coinciden con el store_id del usuario
+  const filteredBags = data.randomBags.filter(
+    (randomBag) => randomBag.store_id.toString() === user.id.toString()
+  );
 
-  // Función para manejar la eliminación
-  const handleDelete = async (random_bag_id) => {
-    try {
-      console.log("Intentando eliminar random_bag con ID:", random_bag_id);
-      await deleteRandomBag({ variables: { random_bag_id } });
-      alert("Random Bag eliminada exitosamente");
-    } catch (err) {
-      console.error("Error al eliminar la Random Bag:", err);
-      alert("Hubo un error al eliminar la Random Bag");
-    }
-  };
-
-  // Actualizar post
-  const handleUpdate = (random_bag_id) => {
-    console.log("Actualizar Random Bag con ID:", random_bag_id);
-    // Aquí puedes redirigir a un formulario de edición o abrir un modal
-  };
-
-  const handleReserve = async (random_bag_id) => {
-    const userID = JSON.parse(localStorage.getItem("user")).id;
-
-    if (userID) {
-      console.log("User ID:", userID);
-      await reserveRandomBag({ variables: { user_id: userID, random_bag_id } });
-      alert("Reserva realizada, realiza tu pago lo mas pronto posible");
-    } else {
-      console.error("No se encontró el ID del usuario");
-      alert("No se pudo realizar la reserva");
-    }
-  };
+  console.log("Datos filtrados a renderizar:", filteredBags);
 
   return (
-    <div className="randombag-container">
-      {data.randomBags.map((randomBag) => (
-        <div className="card" key={randomBag.random_bag_id}>
-          <div className="card-content">
-            <h3 className="title">{randomBag.store.store_name}</h3>
-
-            <hr />
-
-            <div className="card-info">
-              <span className="total-price">$ {randomBag.total_price} </span>
-
-              <span className="disc-price">$ {randomBag.discount_price} </span>
-            </div>
-            <div className="pickup-time">
-              <p>Recoger antes de: {randomBag.pick_up_time}</p>
-            </div>
-
-            <div className="description">
-              <p>
-                {" "}
-                Descripcion: <br /> {randomBag.description}
-              </p>
-            </div>
-
-            <hr />
-            {/* Botones de actualizar y eliminar */}
-            {isStore ? (
-              <div className="card-actions">
-                <button
-                  className="update-button"
-                  onClick={() => handleUpdate(randomBag.random_bag_id)}
-                >
-                  <Link
-                    to={{
-                      pathname: "/store/form",
-                      state: { randomBag }, // Pasamos los datos de la random bag como estado
-                    }}
+    <div className="card-container">
+      {filteredBags.length > 0 ? (
+        filteredBags.map((randomBag) => (
+          <div className="card" key={randomBag.random_bag_id}>
+            <div className="card-content">
+              <h3 className="title">{randomBag.store.store_name}</h3>
+              <hr />
+              <div className="card-info">
+                <span className="total-price">$ {randomBag.total_price}</span>
+                <span className="disc-price">$ {randomBag.discount_price}</span>
+              </div>
+              <div className="pickup-time">
+                <p>Recoger antes de: {randomBag.pick_up_time}</p>
+              </div>
+              <div className="description">
+                <p>Descripción: <br /> {randomBag.description}</p>
+              </div>
+              <hr />
+              {/* Botones de actualizar, eliminar o reservar */}
+              {isStore ? (
+                <div className="card-actions">
+                  <button
+                    className="update-button"
+                    onClick={() => handleUpdate(randomBag)}
                   >
-                    <button className="update-button">Actualizar</button>
-                  </Link>
-                </button>
-                <button
-                  className="delete-button"
-                  onClick={() => handleDelete(randomBag.random_bag_id)}
-                >
-                  Eliminar
-                </button>
-              </div>
-            ) : (
-              <div className="card-actions">
-                <button
-                  className="reserve-button"
-                  onClick={() => handleReserve(randomBag.random_bag_id)}
-                >
-                  Reservar
-                </button>
-              </div>
-            )}
+                    Actualizar
+                  </button>
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDelete(randomBag.random_bag_id)}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              ) : (
+                <div className="card-actions">
+                  <button
+                    className="reserve-button"
+                    onClick={() => handleReserve(randomBag.random_bag_id)}
+                  >
+                    Reservar
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>No hay bolsas disponibles para tu tienda.</p>
+      )}
     </div>
   );
 };
