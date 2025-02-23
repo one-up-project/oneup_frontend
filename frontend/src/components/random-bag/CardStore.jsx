@@ -1,13 +1,15 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_RANDOM_BAGS } from "../../graphql/queries";
 import { DELETE_RANDOM_BAG, RESERVE_RANDOM_BAG } from "../../graphql/mutations";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./cardstore.scss";
 import { useState } from "react";
 
 const CardStore = () => {
-  //variable tipo usuario
-  const [currentUser, setCurrentUser] = useState("person");
+  const location = useLocation();
+
+  // Determina si la ruta actual
+  const isStore = location.pathname.startsWith("/store");
 
   // Obtener los datos de random_bag
   const { loading, error, data } = useQuery(GET_RANDOM_BAGS, {
@@ -60,7 +62,6 @@ const CardStore = () => {
   };
 
   const handleReserve = async (random_bag_id) => {
-    localStorage.setItem("user", JSON.stringify({ id: 1 }));
     const userID = JSON.parse(localStorage.getItem("user")).id;
 
     if (userID) {
@@ -100,7 +101,7 @@ const CardStore = () => {
 
             <hr />
             {/* Botones de actualizar y eliminar */}
-            {currentUser == "store" ? (
+            {isStore ? (
               <div className="card-actions">
                 <button
                   className="update-button"

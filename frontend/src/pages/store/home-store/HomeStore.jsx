@@ -3,6 +3,8 @@ import "./homeStore.scss";
 import CardStore from "../../../components/random-bag/CardStore";
 import { Link } from "react-router-dom";
 const HomeStore = () => {
+  localStorage.setItem("store", JSON.stringify({ id: 3 }));
+
   return (
     <div className="layer">
       <h1>Lista de publicaciones</h1>

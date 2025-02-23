@@ -21,7 +21,45 @@ export const GET_RANDOM_BAGS = gql`
 `;
 
 export const GET_USER_ORDERS = gql`
-query GetUserOrders {
+  query GetUserOrders($userId: Int!) {
+    getOrdersByUser(user_id: $userId) {
+      current_status
+      order_id
+      random_bag_id
+      randomBag {
+        description
+        available
+        total_price
+        discount_price
+        store_id
+        pick_up_time
+        store {
+          store_name
+          id_store
+        }
+      }
+    }
+  }
+`;
 
-}
-  `;
+// export const GET_PENDING_ORDERS = gql`
+//   query GetPendingOrders($userId: Int!) {
+//     getOrdersByUser(user_id: $userId) {
+//       current_status
+//       order_id
+//       random_bag_id
+//       randomBag {
+//         description
+//         available
+//         total_price
+//         discount_price
+//         store_id
+//         pick_up_time
+//         store {
+//           store_name
+//           id_store
+//         }
+//       }
+//     }
+//   }
+// `;
