@@ -1,29 +1,31 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_RANDOM_BAGS } from '../../graphql/queries';
 import { DELETE_RANDOM_BAG } from '../../graphql/mutations';
-import {  useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useAuth } from "../../context/authContext";
 import "./cardstore.scss";
 
 const CardStore = () => {
   const navigate = useNavigate(); // Hook para redireccionar
+  const { user } = useAuth(); // Obtiene el usuario autenticado
 
   // Obtener los datos de random_bag
   const { loading, error, data } = useQuery(GET_RANDOM_BAGS, {
-    fetchPolicy: "network-only", 
+    fetchPolicy: "network-only",
   });
 
-  console.log("Renderizando CardStore"); 
-  console.log("Datos recibidos en el frontend:", data); 
+  console.log("user", user.id);
+  console.log("Datos recibidos en el frontend:", data);
 
   // Mutación para eliminar una random_bag
   const [deleteRandomBag] = useMutation(DELETE_RANDOM_BAG, {
-    refetchQueries: [{ query: GET_RANDOM_BAGS }], 
+    refetchQueries: [{ query: GET_RANDOM_BAGS }],
   });
 
   // Función para manejar la eliminación
   const handleDelete = async (random_bag_id) => {
     try {
-      console.log("Intentando eliminar random_bag con ID:", random_bag_id); 
+      console.log("Intentando eliminar random_bag con ID:", random_bag_id);
       await deleteRandomBag({ variables: { random_bag_id } });
       alert('Random Bag eliminada exitosamente');
     } catch (err) {
@@ -41,53 +43,60 @@ const CardStore = () => {
   };
 
   if (loading) {
-    console.log("Cargando datos..."); 
+    console.log("Cargando datos...");
     return <p>Cargando...</p>;
   }
 
   if (error) {
-    console.error("Error al obtener los datos:", error); 
+    console.error("Error al obtener los datos:", error);
     return <p>No hay ninguna bolsa creada</p>;
   }
 
   // Verificar si data.randomBags existe antes de mapearlo
   if (!data || !data.randomBags) {
-    console.log("No hay datos disponibles"); 
+    console.log("No hay datos disponibles");
     return <p>No hay datos disponibles</p>;
   }
 
-  console.log("Datos a renderizar:", data.randomBags); 
+  // Filtrar las randomBags para mostrar solo las que coinciden con el store_id del usuario
+  const filteredBags = data.randomBags.filter((randomBag) => randomBag.store_id.toString() === user.id.toString());
+
+  console.log("Datos filtrados a renderizar:", filteredBags);
 
   return (
     <div className="card-container">
-      {data.randomBags.map((randomBag) => (
-        <div className="card" key={randomBag.random_bag_id}>
-          <div className="card-content">
-            <div className="card-info">
-              <span className="price">{randomBag.discount_price} €</span>
-            </div>
-            <h3 className="title">{randomBag.username}</h3> {/* Mostrar el nombre de la tienda */}
-            <p className="pickup-time">Tiempo de recogida {randomBag.pick_up_time}</p>
-            <p className="see-more">{randomBag.description}</p>
+      {filteredBags.length > 0 ? (
+        filteredBags.map((randomBag) => (
+          <div className="card" key={randomBag.random_bag_id}>
+            <div className="card-content">
+              <div className="card-info">
+                <span className="price">{randomBag.discount_price} €</span>
+              </div>
+              <h3 className="title">{randomBag.username}</h3> {/* Mostrar el nombre de la tienda */}
+              <p className="pickup-time">Tiempo de recogida {randomBag.pick_up_time}</p>
+              <p className="see-more">{randomBag.description}</p>
 
-            {/* Botones de actualizar y eliminar */}
-            <div className="card-actions">
-              <button
-                className="update-button"
-                onClick={() => handleUpdate(randomBag)} // Pasa randomBag a la función
-              >
-                <span>Actualizar</span>
-              </button>
-              <button
-                className="delete-button"
-                onClick={() => handleDelete(randomBag.random_bag_id)}
-              >
-                Eliminar
-              </button>
+              {/* Botones de actualizar y eliminar */}
+              <div className="card-actions">
+                <button
+                  className="update-button"
+                  onClick={() => handleUpdate(randomBag)} // Pasa randomBag a la función
+                >
+                  <span>Actualizar</span>
+                </button>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDelete(randomBag.random_bag_id)}
+                >
+                  Eliminar
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>No hay bolsas disponibles para tu tienda.</p>
+      )}
     </div>
   );
 };
