@@ -2,11 +2,18 @@
 .top-bar {
     position: relative;
     width: 100%;
-    background-color: white;
+    background-color: rgb(224, 253, 213);
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 10px 0;
+    border-radius: 10px;
+    .logo{
+      img{
+        width: 50px;
+        height: 50px;
+    }
+    }
   }
   
   .top-bar-button {
@@ -23,21 +30,25 @@
   }
   
   .top-bar-button .icon {
-    color: gray;
+    color: rgb(240, 119, 50);
     font-size: 24px;
+
   }
   
   .top-bar-button .label {
     font-size: 12px;
-    color: gray;
+    color: rgb(218, 86, 9);
     margin-top: 4px;
   }
   
   .top-bar-button:hover .icon {
-    color: black;
+    color: rgb(218, 92, 19);
+    // width: 24px;
+    // height: 25px;
+
   }
   
   .top-bar-button:hover .label {
-    color: black;
+    color: rgb(218, 92, 19);
   }
   

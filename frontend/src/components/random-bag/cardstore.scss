@@ -1,0 +1,104 @@
+.randombag-container{
+  overflow-y: auto;
+  //border: 1px solid black;
+  padding: 20px;
+  height: 80vh;
+  justify-content: center;
+
+.card {   
+    position: relative;
+    width: 500px;
+    height: 300px;
+    border-radius: 12px;
+    //overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(230, 164, 42, 0.849);
+    background: rgb(179, 247, 133);
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+  
+    
+  .card-content {
+    padding: 20px;
+    h3{
+      font-size: 27px;
+      color: #000000;
+      margin-bottom: 15px;
+    }
+  
+  
+  .card-info {
+    display: flex;
+    justify-content: center;
+    gap: 105px;
+    align-items: center;
+    margin-top: 15px;
+
+    
+    .total-price{
+      font-size: 20px;
+      color: #ff0909;
+      text-decoration: line-through;
+
+
+    }
+    .disc-price{
+      font-weight: bold;
+      font-size: 28px;
+      color: #0058bd;
+
+    }
+  }
+  
+  
+  .pickup-time {
+    justify-content: left;
+    font-size: 18px;
+    color: #000000;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .description {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+  
+    button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &.update-button {
+        background-color: #4caf50;
+        color: white;
+      }
+  
+      &.delete-button {
+        background-color: #f44336;
+        color: white;
+      }
+      &.reserve-button {
+        background-color: #004799;
+        color: white;
+        padding: 10px;
+        font-size: 17px;
+      }
+    }
+  }
+}
+
+}
+
+}
