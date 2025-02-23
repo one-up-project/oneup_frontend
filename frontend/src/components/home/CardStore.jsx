@@ -1,10 +1,12 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_RANDOM_BAGS } from '../../graphql/queries';
 import { DELETE_RANDOM_BAG } from '../../graphql/mutations';
-import { Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom"; // Importa useNavigate
 import "./cardstore.scss";
 
 const CardStore = () => {
+  const navigate = useNavigate(); // Hook para redireccionar
+
   // Obtener los datos de random_bag
   const { loading, error, data } = useQuery(GET_RANDOM_BAGS, {
     fetchPolicy: "network-only", 
@@ -30,10 +32,12 @@ const CardStore = () => {
     }
   };
 
-  // Actualizar post
-  const handleUpdate = (random_bag_id) => {
-    console.log('Actualizar Random Bag con ID:', random_bag_id);
-    // Aquí puedes redirigir a un formulario de edición o abrir un modal
+  // Función para manejar la actualización
+  const handleUpdate = (randomBag) => {
+    // Guarda los datos de randomBag en localStorage
+    localStorage.setItem("randomBag", JSON.stringify(randomBag));
+    // Redirige al formulario de actualización
+    navigate("/store/update_form");
   };
 
   if (loading) {
@@ -62,7 +66,7 @@ const CardStore = () => {
             <div className="card-info">
               <span className="price">{randomBag.discount_price} €</span>
             </div>
-            <h3 className="title">{randomBag.store_id}</h3>
+            <h3 className="title">{randomBag.username}</h3> {/* Mostrar el nombre de la tienda */}
             <p className="pickup-time">Tiempo de recogida {randomBag.pick_up_time}</p>
             <p className="see-more">{randomBag.description}</p>
 
@@ -70,16 +74,9 @@ const CardStore = () => {
             <div className="card-actions">
               <button
                 className="update-button"
-                onClick={() => handleUpdate(randomBag.random_bag_id)}
+                onClick={() => handleUpdate(randomBag)} // Pasa randomBag a la función
               >
-              <Link
-                to={{
-                  pathname: "/store/form",
-                  state: { randomBag }, // Pasamos los datos de la random bag como estado
-                }}
-              >
-                <button className="update-button">Actualizar</button>
-              </Link>
+                <span>Actualizar</span>
               </button>
               <button
                 className="delete-button"

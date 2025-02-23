@@ -7,6 +7,7 @@ import Store from "./pages/store/Store";
 import HomeUser from "./pages/home/HomeUser";
 import StoreSearch from "./pages/store/store_search/StoreSearch";
 import StoreProfile from "./pages/store/store_profile/StoreProfile";
+import UpdateForm from "./components/store/UpdateForm";
 
 import LoginPage from "./pages/login/LoginPage";
 import Register from "./pages/register/RegisterPage";
@@ -56,6 +57,10 @@ function App() {
               path: "profile",
               element: <StoreProfile/>
             },
+            {
+              path: "update_form",
+              element: <UpdateForm />,
+            }
           ],
         },
         {

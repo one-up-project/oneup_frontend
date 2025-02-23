@@ -5,6 +5,7 @@ export const GET_RANDOM_BAGS = gql`
     randomBags {
       random_bag_id
       store_id
+      username  
       description
       total_price
       discount_price

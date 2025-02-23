@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { CREATE_RANDOM_BAG } from '../../graphql/mutations';
+import { UPDATE_RANDOM_BAG } from '../../graphql/mutations';
 import { XIcon } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import './form.scss';
 
-const Form = () => {
-  const { user, isAuthenticated } = useAuth(); // Obtén el usuario autenticado
-  const location = useLocation();
+const UpdateForm = () => {
+  const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    store_id: user?.id || '', // Usa el ID del usuario autenticado
-    username: user?.username || '', // Usa el nombre de usuario autenticado
+    random_bag_id: '',
+    store_id: '',
+    username: '',
     description: '',
     total_price: '',
     discount_price: '',
@@ -19,30 +20,48 @@ const Form = () => {
     available: false,
   });
 
-  // Precarga los datos si hay un estado en la ubicación
+  // Precarga los datos desde localStorage
   useEffect(() => {
-    console.log("location.state en UpdateForm:", location.state); // Depuración
-    if (location.state && location.state.randomBag) {
-      const { randomBag } = location.state;
-      console.log("Datos recibidos en el formulario:", randomBag); // Depuración
+    const randomBag = JSON.parse(localStorage.getItem("randomBag")); // Recupera los datos de localStorage
+    if (randomBag) {
+      console.log("Datos recibidos en el formulario de actualización:", randomBag); // Depuración
+
+      // Formatea la fecha para que sea compatible con datetime-local
+      const formattedPickUpTime = randomBag.pick_up_time
+        ? randomBag.pick_up_time.slice(0, 16) // Elimina los segundos y milisegundos
+        : '';
+
       setFormData({
-        store_id: randomBag.store_id || user?.id || '',
-        username: randomBag.username || user?.username || '',
+        random_bag_id: randomBag.random_bag_id || '',
+        store_id: randomBag.store_id || '',
+        username: randomBag.username || '',
         description: randomBag.description || '',
         total_price: randomBag.total_price || '',
         discount_price: randomBag.discount_price || '',
-        pick_up_time: randomBag.pick_up_time || '',
+        pick_up_time: formattedPickUpTime, // Usa la fecha formateada
         available: randomBag.available || false,
       });
-    }
-  }, [location.state, user]);
 
-  const [createRandomBag] = useMutation(CREATE_RANDOM_BAG);
+      console.log("Datos precargados en formData:", { // Depuración
+        random_bag_id: randomBag.random_bag_id,
+        store_id: randomBag.store_id,
+        username: randomBag.username,
+        description: randomBag.description,
+        total_price: randomBag.total_price,
+        discount_price: randomBag.discount_price,
+        pick_up_time: formattedPickUpTime,
+        available: randomBag.available,
+      });
+    } else {
+      console.error("No se encontraron datos de randomBag en localStorage."); // Depuración
+    }
+  }, []);
+
+  const [updateRandomBag] = useMutation(UPDATE_RANDOM_BAG);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    // Si el campo que cambia es total_price, calcula el 30% de descuento
     if (name === 'total_price') {
       const totalPrice = parseFloat(value);
       const discountPrice = totalPrice * 0.7;
@@ -57,55 +76,46 @@ const Form = () => {
         [name]: type === 'checkbox' ? checked : value,
       });
     }
+
+    console.log("Campo cambiado:", name, "Nuevo valor:", value); // Depuración
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verifica si el usuario está autenticado
-    if (!isAuthenticated || !user?.id || !user?.username) {
-      alert("Debes iniciar sesión para crear una bolsa sorpresa.");
-      return;
-    }
-
     try {
-      const { data } = await createRandomBag({
+      const inputData = {
+        random_bag_id: parseInt(formData.random_bag_id),
+        store_id: parseInt(formData.store_id),
+        username: formData.username,
+        description: formData.description,
+        total_price: parseFloat(formData.total_price),
+        discount_price: parseFloat(formData.discount_price),
+        pick_up_time: formData.pick_up_time,
+        available: formData.available,
+      };
+
+      console.log("Datos enviados en la mutación:", inputData); // Depuración
+
+      const { data } = await updateRandomBag({
         variables: {
-          input: {
-            store_id: parseInt(user.id), // Usa el ID del usuario autenticado
-            username: user.username, // Usa el nombre de usuario autenticado
-            description: formData.description,
-            total_price: parseFloat(formData.total_price),
-            discount_price: parseFloat(formData.discount_price),
-            pick_up_time: formData.pick_up_time,
-            available: formData.available,
-          },
+          input: inputData,
         },
       });
 
-      console.log('Random Bag creado:', data.createRandomBag);
-      alert('¡Bolsa sorpresa creada exitosamente!');
-
-      // Reinicia el formulario
-      setFormData({
-        store_id: user.id,
-        username: user.username,
-        description: '',
-        total_price: '',
-        discount_price: '',
-        pick_up_time: '',
-        available: false,
-      });
+      console.log('Random Bag actualizada:', data.updateRandomBag); // Depuración
+      alert('¡Bolsa sorpresa actualizada exitosamente!');
+      navigate("/store/home");
     } catch (error) {
-      console.error('Error al crear la bolsa sorpresa:', error);
-      alert('Hubo un error al crear la bolsa sorpresa.');
+      console.error('Error al actualizar la bolsa sorpresa:', error); // Depuración
+      alert('Hubo un error al actualizar la bolsa sorpresa.');
     }
   };
 
   return (
     <div className="form-container">
       <div className="form-header">
-        <h1>{location.state ? "Actualizar bolsa sorpresa" : "Crear bolsa sorpresa"}</h1>
+        <h1>Actualizar bolsa sorpresa</h1>
         <Link to="/store/home">
           <button className="close-button">
             <XIcon className="icon" />
@@ -113,13 +123,6 @@ const Form = () => {
         </Link>
       </div>
       <form onSubmit={handleSubmit}>
-        {/* Campo store_id oculto o no editable */}
-        <input
-          type="hidden"
-          name="store_id"
-          value={formData.store_id}
-        />
-
         <div className="form-group">
           <label>Descripción:</label>
           <textarea
@@ -175,11 +178,11 @@ const Form = () => {
         </div>
 
         <button type="submit" className="submit-button">
-          {location.state ? "Actualizar" : "Guardar"}
+          Actualizar
         </button>
       </form>
     </div>
   );
 };
 
-export default Form;
+export default UpdateForm;
