@@ -75,7 +75,7 @@ const CardStore = () => {
   };
 
   return (
-    <div className="card-container">
+    <div className="randombag-container">
       {data.randomBags.map((randomBag) => (
         <div className="card" key={randomBag.random_bag_id}>
           <div className="card-content">

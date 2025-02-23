@@ -29,9 +29,10 @@ const Reserved = () => {
             <th className="reserved-table-header">Id Orden</th>
             <th className="reserved-table-header">Nombre tienda</th>
             <th className="reserved-table-header">Descripcion</th>
+            <th className="reserved-table-header">Precio</th>
             <th className="reserved-table-header">Precio dto</th>
-            <th className="reserved-table-header">Precio total</th>
             <th className="reserved-table-header">Hora</th>
+            <th className="reserved-table-header">Estado</th>
             <th className="reserved-table-header">Cancelar</th>
             <th className="reserved-table-header">Pagar</th>
           </tr>
@@ -48,15 +49,14 @@ const Reserved = () => {
                 <td className="reserved-table-cell">
                   {order.randomBag.description}
                 </td>
-                <td className="reserved-table-cell">
+                <td className="total-price">{order.randomBag.total_price}</td>
+                <td className="discount-price">
                   {order.randomBag.discount_price}
-                </td>
-                <td className="reserved-table-cell">
-                  {order.randomBag.total_price}
                 </td>
                 <td className="reserved-table-cell">
                   {order.randomBag.pick_up_time}
                 </td>
+                <td className="status">{order.current_status}</td>
                 <td className="reserved-table-cell">
                   <button className="cancel-button">Cancelar</button>
                 </td>

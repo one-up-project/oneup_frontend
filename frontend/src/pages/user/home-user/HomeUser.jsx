@@ -2,6 +2,7 @@ import React from "react";
 import CardStore from "../../../components/random-bag/CardStore";
 
 const HomeUser = () => {
+  //establecer datos del usuario
   localStorage.setItem("user", JSON.stringify({ id: 1 }));
 
   return (
