@@ -1,4 +1,14 @@
+.table-container{
+.title{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .reserved-table{
+
     padding: 15px;
     border: 1px solid #b9a8a8;
     border-radius: 10px;
@@ -53,6 +63,11 @@
             background-color: #463b3b;
         }
     }
+    .wallet{
+        border-bottom: 1px solid #000;
+
+    }
+    
     .pay-button{
         background-color: #f16616;;
         color: #fff;
@@ -68,4 +83,4 @@
         background-color: #fff;
     }
 
-}
+}}
