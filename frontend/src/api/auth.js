@@ -24,6 +24,26 @@ export const useRegisterRequest = () => {
   return registerUser;
 }
 
+const UPDATE_USER = gql`
+mutation updateUser($input: UserUpdate!) {
+  updateUser(input: $input) {
+    id
+    username
+    email
+    password
+    phone
+    rol
+    lat
+    long
+  }
+}
+`;
+
+export const useUpdateRequest = () => {
+const [updateUser] = useMutation (UPDATE_USER);
+return updateUser;
+}
+
 //export const loginRequest = async (user) => axios.post(`/login`, user); // función que manda por método post a la ruta /login el usuario
 
   const LOGIN_USER = gql`

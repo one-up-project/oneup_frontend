@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
-import { useLoginRequest, useRegisterRequest, verifyTokenRequest } from "../api/auth";
+import { useLoginRequest, useRegisterRequest, useUpdateRequest, verifyTokenRequest } from "../api/auth";
 //import { useLoginRequest, useRegisterRequest, useVerifyTokenRequest } from "../api/auth";
 import Cookies from "js-cookie"; // npm install js-cookie
 
@@ -15,6 +15,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
 
   const registerRequest = useRegisterRequest(); //Transforma la función para que se pueda usar en el contexto
+  const userUpdate = useUpdateRequest(); //Transforma la función para que se pueda usar en el contexto
   const loginRequest = useLoginRequest(); //Transforma la función para que se pueda usar en el contexto
   //const verifyTokenRequest = useVerifyTokenRequest(); //Transforma la función para que se pueda usar en el contexto
 
@@ -52,8 +53,37 @@ export const AuthProvider = ({ children }) => {
           input: userData // <-- Clave "input" requerida
         }
       });
-      //console.log(res.data.createUser);
+      console.log(res.data.createUser);
       setUser(res.data.createUser);
+      setIsAuthenticated(true);
+
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.message;
+      setErrors([errorMessage]); // Asigna un array
+    }
+  };
+
+  const update = async (user) => {
+
+    const userData = { // se crea un objeto con los datos del usuario
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      phone: user.phone,
+      rol: user.rol,
+      lat: user.latitude,
+      long: user.longitude,
+    };
+
+    try {
+      const res = await userUpdate({ // llama a la función y manda por método post a la ruta /register el usuario 
+        variables: {
+          input: userData // <-- Clave "input" requerida
+        }
+      });
+      //console.log(res.data.createUser);
+      setUser(res.data.updateUser);
       setIsAuthenticated(true);
 
     } catch (error) {
@@ -143,6 +173,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         signup,
+        update,
         signin,
         logout,
         isAuthenticated,

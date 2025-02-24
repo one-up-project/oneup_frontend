@@ -30,10 +30,12 @@ const NavbarHome = () => {
           <span className="label">Favoritos</span>
         </button>
       )}
+      <Link to={`${basePath}/updateUser`}>
       <button className="top-bar-button">
         <UserIcon className="icon" />
         <span className="label">Perfil</span>
       </button>
+      </Link>
       <Link to="/">
       <button className="top-bar-button logout-button">
         <LogOutIcon className="icon logout-icon" />
