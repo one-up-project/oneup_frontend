@@ -2,29 +2,10 @@
 @import "../../styles/colors.scss";
 .layout{
     height: 100vh;
-    max-width: max-content;
-    margin-left: auto;
-    margin-right: auto;
 
-    
-    @include large{
-        //background-color: rgb(226, 157, 157);
-        max-width: 1280px;
-
-    }
-    @include medium{
-        //background-color: rgb(172, 172, 241);
-        max-width: 768px;
-    }
-    @include small{
-        //background-color: rgb(240, 212, 162);
-        max-width: 640px;
-    }
-}
-
-.navbar{
 
 }
+
 
 .content{
     //background-color: green;

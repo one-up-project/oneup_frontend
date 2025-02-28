@@ -1,6 +1,6 @@
 import React from "react";
-import "./home2.scss"; // Mantenemos los estilos del primer componente
-import CardStore from "../../components/home/CardStore"; // Corregimos el nombre del componente
+import "./homeStore.scss"; 
+import CardStore from "../../../components/random-bag/CardStore";
 import { Link } from "react-router-dom";
 
 const Home2 = () => {

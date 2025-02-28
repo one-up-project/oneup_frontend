@@ -13,10 +13,6 @@ export const GET_RANDOM_BAGS = gql`
       available
       created_at
       updated_at
-      store {
-        id_store
-        store_name
-      }
     }
   }
 `;
