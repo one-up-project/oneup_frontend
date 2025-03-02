@@ -31,12 +31,7 @@ const NavbarHome = () => {
           <span className="label">Buscar</span>
         </button>
       </Link>
-      {!isStore && (
-        <button className="top-bar-button">
-          <HeartIcon className="icon" />
-          <span className="label">Favoritos</span>
-        </button>
-      )}
+
       <Link to={`${basePath}/updateUser`}>
       <button className="top-bar-button">
         <UserIcon className="icon" />
