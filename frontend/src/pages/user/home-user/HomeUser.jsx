@@ -1,15 +1,14 @@
 import React from "react";
-import CardStore from "../../../components/random-bag/CardStore";
-
+import UserCard from "../../../components/user/UserCard";
 const HomeUser = () => {
   //establecer datos del usuario
   localStorage.setItem("user", JSON.stringify({ id: 1 }));
 
   return (
     <div className="layer">
-      <h1>Bienvenido, aqui encontraràs las bolsas sorpresa disponibles</h1>
+      <h1>Bienvenido, aqui encontrarás las bolsas sorpresa disponibles</h1>
       <div className="cards">
-        <CardStore />
+        <UserCard />
       </div>
     </div>
   );
