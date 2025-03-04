@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useMutation } from "@apollo/client";
-import { CREATE_RANDOM_BAG } from "../../graphql/mutations";
+import React, { useState, useEffect } from 'react';
+import { useMutation } from '@apollo/client';
+import { CREATE_RANDOM_BAG } from '../../graphql/mutations';
 import { XIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
-import "./form.scss";
+import './form.scss';
 
 const Form = () => {
   const { user, isAuthenticated } = useAuth(); // Obtén el usuario autenticado
   const location = useLocation();
   const [formData, setFormData] = useState({
-    store_id: user?.id || "", // Usa el ID del usuario autenticado
-    username: user?.username || "", // Usa el nombre de usuario autenticado
-    description: "",
-    total_price: "",
-    discount_price: "",
-    pick_up_time: "",
+    store_id: user?.id || '', // Usa el ID del usuario autenticado
+    username: user?.username || '', // Usa el nombre de usuario autenticado
+    description: '',
+    total_price: '',
+    discount_price: '',
+    pick_up_time: '',
     available: false,
   });
 
@@ -26,12 +26,12 @@ const Form = () => {
       const { randomBag } = location.state;
       console.log("Datos recibidos en el formulario:", randomBag); // Depuración
       setFormData({
-        store_id: randomBag.store_id || user?.id || "",
-        username: randomBag.username || user?.username || "",
-        description: randomBag.description || "",
-        total_price: randomBag.total_price || "",
-        discount_price: randomBag.discount_price || "",
-        pick_up_time: randomBag.pick_up_time || "",
+        store_id: randomBag.store_id || user?.id || '',
+        username: randomBag.username || user?.username || '',
+        description: randomBag.description || '',
+        total_price: randomBag.total_price || '',
+        discount_price: randomBag.discount_price || '',
+        pick_up_time: randomBag.pick_up_time || '',
         available: randomBag.available || false,
       });
     }
@@ -43,7 +43,7 @@ const Form = () => {
     const { name, value, type, checked } = e.target;
 
     // Si el campo que cambia es total_price, calcula el 30% de descuento
-    if (name === "total_price") {
+    if (name === 'total_price') {
       const totalPrice = parseFloat(value);
       const discountPrice = totalPrice * 0.7;
       setFormData({
@@ -54,7 +54,7 @@ const Form = () => {
     } else {
       setFormData({
         ...formData,
-        [name]: type === "checkbox" ? checked : value,
+        [name]: type === 'checkbox' ? checked : value,
       });
     }
   };
@@ -83,31 +83,29 @@ const Form = () => {
         },
       });
 
-      console.log("Random Bag creado:", data.createRandomBag);
-      alert("¡Bolsa sorpresa creada exitosamente!");
+      console.log('Random Bag creado:', data.createRandomBag);
+      alert('¡Bolsa sorpresa creada exitosamente!');
 
       // Reinicia el formulario
       setFormData({
         store_id: user.id,
         username: user.username,
-        description: "",
-        total_price: "",
-        discount_price: "",
-        pick_up_time: "",
+        description: '',
+        total_price: '',
+        discount_price: '',
+        pick_up_time: '',
         available: false,
       });
     } catch (error) {
-      console.error("Error al crear la bolsa sorpresa:", error);
-      alert("Hubo un error al crear la bolsa sorpresa.");
+      console.error('Error al crear la bolsa sorpresa:', error);
+      alert('Hubo un error al crear la bolsa sorpresa.');
     }
   };
 
   return (
     <div className="form-container">
       <div className="form-header">
-        <h1>
-          {location.state ? "Actualizar bolsa sorpresa" : "Crear bolsa sorpresa"}
-        </h1>
+        <h1>{location.state ? "Actualizar bolsa sorpresa" : "Crear bolsa sorpresa"}</h1>
         <Link to="/store/home">
           <button className="close-button">
             <XIcon className="icon" />
@@ -115,9 +113,12 @@ const Form = () => {
         </Link>
       </div>
       <form onSubmit={handleSubmit}>
-        {/* Campos ocultos para store_id y username */}
-        <input type="hidden" name="store_id" value={formData.store_id} />
-        <input type="hidden" name="username" value={formData.username} />
+        {/* Campo store_id oculto o no editable */}
+        <input
+          type="hidden"
+          name="store_id"
+          value={formData.store_id}
+        />
 
         <div className="form-group">
           <label>Descripción:</label>

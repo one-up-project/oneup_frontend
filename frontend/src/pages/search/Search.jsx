@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import "./search.scss";
 import SearchBar from "../../components/search-bar/SearchBar";
 import StoreCard from "../../components/store-card/StoreCard";
