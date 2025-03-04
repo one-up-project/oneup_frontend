@@ -28,6 +28,9 @@ const Home = () => {
             {
               order_id: order_id,
               status: status,
+            },
+            {
+              withCredentials: true,
             }
           );
           console.log(
