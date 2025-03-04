@@ -17,6 +17,11 @@ const Home = () => {
 
       // Hacer una petición a content_ms
       const updateOrderStatus = async () => {
+        console.log(
+          "procesando actualizacion de orden (id, status)",
+          order_id,
+          status
+        );
         try {
           const response = await axios.post(
             `${process.env.REACT_APP_CONTENT_MS}/api/store/orders/update-order-status`,
