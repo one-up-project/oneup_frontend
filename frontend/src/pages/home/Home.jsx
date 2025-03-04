@@ -25,7 +25,12 @@ const Home = () => {
               status: status,
             }
           );
-          console.log("actualizacion orden:", response.data);
+          console.log(
+            "actualizacion orden (id, status):",
+            order_id,
+            status,
+            response.data
+          );
         } catch (error) {
           console.error("Error al actualizar el estado de la orden:", error);
         }
