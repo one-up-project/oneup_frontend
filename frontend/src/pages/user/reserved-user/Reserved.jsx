@@ -4,10 +4,11 @@ import "./reserved.scss";
 import { GET_USER_ORDERS } from "../../../graphql/queries";
 import { useQuery } from "@apollo/client";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Reserved = () => {
   const [preferenceIds, setPreferenceIds] = useState({});
+
   //obtener el id del usuario
   const id = JSON.parse(localStorage.getItem("user")).id;
 
@@ -30,12 +31,13 @@ const Reserved = () => {
     locale: "es-CO",
   });
 
-  const createPreference = async (title, price) => {
-    console.log("datos pago:", title, price);
+  const createPreference = async (orderId, title, price) => {
+    console.log("datos pago:", orderId, title, price);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_PAYMENT_MS}/payments-ms/create_preference`,
         {
+          id: orderId,
           title: title,
           price: price,
           quantity: 1,
@@ -49,7 +51,7 @@ const Reserved = () => {
   };
 
   const handlePayment = async (orderId, title, price) => {
-    const id = await createPreference(title, price);
+    const id = await createPreference(orderId, title, price);
     setPreferenceIds((prev) => ({ ...prev, [orderId]: id }));
   };
 
@@ -112,12 +114,17 @@ const Reserved = () => {
                 </td>
                 <td>
                   {preferenceIds[order.order_id] && (
-                    <div className="wallet">
-                      <Wallet
-                        initialization={{
-                          preferenceId: preferenceIds[order.order_id],
-                        }}
-                      />
+                    // <div className="wallet">
+                    //   <Wallet
+                    //     initialization={{
+                    //       preferenceId: preferenceIds[order.order_id],
+                    //     }}
+                    //   />
+                    // </div>
+                    <div className="payment">
+                      <a href={preferenceIds[order.order_id]} target="_blank">
+                        link to pay
+                      </a>
                     </div>
                   )}
                 </td>

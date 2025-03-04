@@ -1,7 +1,40 @@
 import React from "react";
+import { useEffect, useState } from "react";
+
 import "./home.scss";
+import axios from "axios";
 
 const Home = () => {
+  const [paymentStatus, setPaymentStatus] = useState(null);
+
+  // datos pago
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get("status");
+    const order_id = params.get("external_reference");
+    if (status) {
+      setPaymentStatus(status);
+
+      // Hacer una petición a content_ms
+      const updateOrderStatus = async () => {
+        try {
+          const response = await axios.post(
+            `${process.env.REACT_APP_CONTENT_MS}/orders/update-order-status`,
+            {
+              order_id: order_id,
+              status: status,
+            }
+          );
+          console.log("actualizacion orden:", response.data);
+        } catch (error) {
+          console.error("Error al actualizar el estado de la orden:", error);
+        }
+      };
+
+      updateOrderStatus();
+    }
+  }, []);
+
   return (
     <div className="home-page">
       <div className="banner1">

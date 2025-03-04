@@ -1,4 +1,5 @@
 .table-container{
+
 .title{
     margin-top: 20px;
     display: flex;
@@ -8,6 +9,9 @@
 }
 
 .reserved-table{
+    overflow-y: scroll;
+    height: 400px; 
+    display: block;
 
     padding: 15px;
     border: 1px solid #b9a8a8;
