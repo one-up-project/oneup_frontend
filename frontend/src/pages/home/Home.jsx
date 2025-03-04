@@ -19,7 +19,7 @@ const Home = () => {
       const updateOrderStatus = async () => {
         try {
           const response = await axios.post(
-            `${process.env.REACT_APP_CONTENT_MS}/orders/update-order-status`,
+            `${process.env.REACT_APP_CONTENT_MS}/api/store/orders/update-order-status`,
             {
               order_id: order_id,
               status: status,
